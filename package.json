@@ -1,0 +1,32 @@
+{
+  "name": "nfp_www",
+  "version": "0.1.0",
+  "description": "nfp_www MVVM frontend for nfp_api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/ && cp assets/js/*.js dist/js",
+    "watch:jsx": "watch \"npm run build:jsx\" assets/js/",
+    "build": "npm run build:jsx",
+    "build:watch": "parallelshell \"npm run watch:jsx\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfp-projects/nfp_www.git"
+  },
+  "author": "Jonatan Nilsson",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/nfp-projects/nfp_www/issues"
+  },
+  "homepage": "https://github.com/nfp-projects/nfp_www",
+  "devDependencies": {
+    "parallelshell": "^1.0.4",
+    "watch": "^0.13.0"
+  },
+  "dependencies": {
+    "mithril": "^0.1.29",
+    "msx": "^0.3.0",
+    "watch": "^0.13.0"
+  }
+}

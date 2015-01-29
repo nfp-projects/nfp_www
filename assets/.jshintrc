@@ -1,0 +1,30 @@
+{
+  "eqeqeq": true,
+  "forin": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "indent": 2,
+  "quotmark": "false",
+  "maxdepth": 4,
+  "boss": true,
+  "eqnull": true,
+  "globalstrict": true,
+  "smarttabs": true,
+  "browser": true,
+  "node": true,
+  "predef": [
+    "describe",
+    "it",
+    "before",
+    "beforeEach",
+    "after",
+    "afterEach"
+  ]
+}
