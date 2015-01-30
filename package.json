@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:res": "rm dist/js/lib/*js && cp node_modules/mithril/mith*.js dist/js/lib/ && lodash compat -o dist/js/lib/lodash.js",
+    "build:res": "browserify -r mithril -o dist/js/lib/mithril.js && browserify -r lodash -o dist/js/lib/lodash.js",
     "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
-    "build:js": "rm dist/js/*.js && rpm run build:jsx && ",
-    "watch:jsx": "watch \"npm run build:jsx\" assets/js/",
-    "build": "npm run build:jsx && npm run build:res",
-    "build:watch": "parallelshell \"npm run watch:jsx\" \"npm run build:res\""
+    "build:js": "npm run build:jsx && browserify -u mithril assets/js/main.js -o dist/js/main.js --debug",
+    "watch:js": "watch \"npm run build:js\" assets/js/",
+    "build": "npm run build:js && npm run build:res",
+    "build:watch": "parallelshell \"npm run watch:js\" \"npm run build:res\""
   },
   "repository": {
     "type": "git",

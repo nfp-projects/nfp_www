@@ -26,7 +26,7 @@ dist
 node_modules
 
 assets/js/.*
-assets/js/*.js
+assets/js/components/**/*.js
 
 # Users Environment Variables
 .lock-wscript
