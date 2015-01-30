@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/ && cp assets/js/*.js dist/js",
+    "build:res": "rm dist/js/lib/*js && cp node_modules/mithril/mith*.js dist/js/lib/ && lodash compat -o dist/js/lib/lodash.js",
+    "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
+    "build:js": "rm dist/js/*.js && rpm run build:jsx && ",
     "watch:jsx": "watch \"npm run build:jsx\" assets/js/",
-    "build": "npm run build:jsx",
-    "build:watch": "parallelshell \"npm run watch:jsx\""
+    "build": "npm run build:jsx && npm run build:res",
+    "build:watch": "parallelshell \"npm run watch:jsx\" \"npm run build:res\""
   },
   "repository": {
     "type": "git",
@@ -21,12 +23,20 @@
   },
   "homepage": "https://github.com/nfp-projects/nfp_www",
   "devDependencies": {
+    "browserify": "^8.1.1",
     "parallelshell": "^1.0.4",
     "watch": "^0.13.0"
   },
   "dependencies": {
+    "app-root-path": "^1.0.0",
+    "bluebird": "^2.9.3",
+    "bunyan": "^1.3.3",
+    "koa": "^0.16.0",
+    "koa-bunyan": "0.0.2",
+    "lodash": "^3.0.0",
     "mithril": "^0.1.29",
     "msx": "^0.3.0",
+    "nconf": "^0.7.1",
     "watch": "^0.13.0"
   }
 }
