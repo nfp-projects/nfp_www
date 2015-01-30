@@ -3,6 +3,8 @@
 var m = require('mithril');
 var home = require('./home.model');
 
-home.view = function(c) {
-  return <div>This is the frontpage</div>
+home.view = function() {
+  var temp = <div>This is the frontpage</div>;
+  console.log(temp);
+  return temp;
 };

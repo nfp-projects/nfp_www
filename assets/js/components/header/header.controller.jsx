@@ -9,13 +9,11 @@ header.controller = function() {
 };
 
 header.view = function(c) {
-  return <div class="header">
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-      </ul>
-    </div>;
+  return <ul>
+      <li>
+        <a href="/">Home</a>
+      </li>
+    </ul>;
 };
 
 module.exports = header;
