@@ -25,9 +25,13 @@ dist
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
 
+# Compiled assets and hidden files
 assets/js/layout.js
 assets/js/.*
 assets/js/components/**/*.js
+
+# Runtime config
+config/config.json.current
 
 # Users Environment Variables
 .lock-wscript
