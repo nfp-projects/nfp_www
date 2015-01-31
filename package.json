@@ -10,7 +10,8 @@
     "build:js": "npm run build:jsx && browserify -u mithril assets/js/main.js -o dist/js/main.js --debug",
     "watch:js": "watch \"npm run build:js\" assets/js/",
     "build": "npm run build:js && npm run build:res",
-    "build:watch": "parallelshell \"npm run watch:js\" \"npm run build:res\""
+    "build:watch": "parallelshell \"npm run watch:js\" \"npm run build:res\"",
+    "start": "nodemon --harmony index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/nfp-projects/nfp_www",
   "devDependencies": {
     "browserify": "^8.1.1",
+    "nodemon": "^1.3.5",
     "parallelshell": "^1.0.4",
     "watch": "^0.13.0"
   },

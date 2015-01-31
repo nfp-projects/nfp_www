@@ -7,15 +7,25 @@ The objective of this was not to rewrite nfp.is site but mostly to test mithril 
 Installation & Run
 ------------------
 
+Since we use Koa (web framework that uses generators) make sure you install Node 0.11 since previous versions of node don't support generators.
+
 ```bash
 npm install
 npm run build
-nodemon --harmony index.js
+npm start
 
 ### Alts for running in production mode
 # node --harmoney index.js --production
 # NODE_ENV=production node --harmony index.js
 ```
+
+Run with Docker
+---------------
+
+./bin/dockerize
+./bin/run-docker
+
+You should be inside the docker container. Run the npm commands as described in the Install section.
 
 Config
 ------

@@ -31,3 +31,8 @@ assets/js/components/**/*.js
 
 # Users Environment Variables
 .lock-wscript
+
+# Docker related junk
+.bash_history
+.config
+.npm

@@ -21,5 +21,5 @@
   "license": "WTFPL",
   "homepage": "https://github.com/nfp-projects/nfp_www",
   "_": [],
-  "$0": "node D:\\NFP\\nfp_www\\index.js"
+  "$0": "node ./index.js"
 }
