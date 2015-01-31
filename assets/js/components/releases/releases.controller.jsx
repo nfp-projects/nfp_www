@@ -1,5 +1,7 @@
 'use strict';
 
+var m = require('mithril');
+
 var releases = {};
 
 releases.Release = function(data) {
@@ -18,12 +20,11 @@ releases.vm = (function() {
 }());
 
 releases.controller = function() {
-  this.vm.init();
+  releases.vm.init();
 };
 
 releases.view = function() {
   return <div class="">test</div>;
 };
 
-routes['/releases'] = home;
-
+module.exports = releases;

@@ -7,8 +7,6 @@ var home = require('./home.model');
 require('./home.view');
 
 home.controller = function() {
-  console.log('home constructor called');
-  m.redraw.strategy("diff");
   home.vm.init();
 };
 
