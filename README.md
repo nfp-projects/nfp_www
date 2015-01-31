@@ -46,7 +46,7 @@ Runtime Arguments
 
 NFP api supports number of handy command arguments:
 
-`--production` Runs nfp_api in production mode. This disables database integrity scan as well as enables other optimisations.
+`--production` Runs nfp_api in production mode.
 
 `--config` Generates current runtime config. Displays it and saves it into `config/config.json.current` before exiting.
 
