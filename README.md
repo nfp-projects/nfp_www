@@ -22,8 +22,10 @@ npm start
 Run with Docker
 ---------------
 
+```bash
 ./bin/dockerize
 ./bin/run-docker
+```
 
 You should be inside the docker container. Run the npm commands as described in the Install section.
 
