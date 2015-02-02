@@ -13,10 +13,6 @@ Since we use Koa (web framework that uses generators) make sure you install Node
 npm install
 npm run build
 npm start
-
-### Alts for running in production mode
-# node --harmoney index.js --production
-# NODE_ENV=production node --harmony index.js
 ```
 
 Run with Docker
