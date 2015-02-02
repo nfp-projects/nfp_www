@@ -29,26 +29,12 @@ Run with Docker
 
 You should be inside the docker container. Run the npm commands as described in the Install section.
 
-Config
-------
-
-Every time nfp_www is run, it will generate a copy of the whole current runtime configuration into `config/config.json.current`. Any of these values can be overridden by creating a `config/config.json` and adding values you want to override.
-
 Build options
 -------------
 
 `npm run build` Builds all resources and collects them into `/dist`.
 
 `npm run build:watch` Runs continus build by watching any of the resources.
-
-Runtime Arguments
------------------
-
-NFP api supports number of handy command arguments:
-
-`--production` Runs nfp_api in production mode.
-
-`--config` Generates current runtime config. Displays it and saves it into `config/config.json.current` before exiting.
 
 License
 -------
