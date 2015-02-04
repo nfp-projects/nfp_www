@@ -11,9 +11,9 @@ login.vm = (function() {
     vm.username = m.prop('');
     vm.password = m.prop('');
 
-    vm.login = function() {
+    vm.login = function(method) {
+      console.log(method);
       console.log(vm.username());
-      vm.username('test');
       console.log(vm.password());
     };
   };

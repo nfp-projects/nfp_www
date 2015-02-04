@@ -11,7 +11,8 @@
     "watch:js": "watch \"npm run build:js\" assets/js/",
     "build": "npm run build:js && npm run build:res",
     "build:watch": "parallelshell \"npm run watch:js\" \"npm run build:res\"",
-    "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/base.html -s ./dist"
+    "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/base.html -s ./dist",
+    "start:watch": "watch \"npm start\" dist"
   },
   "repository": {
     "type": "git",
@@ -27,8 +28,7 @@
     "browserify": "^8.1.1",
     "nodemon": "^1.3.5",
     "parallelshell": "^1.0.4",
-    "watch": "^0.13.0",
-    "spserver": "TheThing/spserver"
+    "watch": "^0.13.0"
   },
   "dependencies": {
     "app-root-path": "^1.0.0",
@@ -40,6 +40,7 @@
     "lodash": "^3.0.0",
     "mithril": "^0.1.29",
     "msx": "^0.3.0",
-    "nconf": "^0.7.1"
+    "nconf": "^0.7.1",
+    "spserver": "^0.1.2"
   }
 }
