@@ -1,7 +1,13 @@
 'use strict';
 
 var m = require('mithril');
+var authentication = require('./helpers/authentication');
+
+//Configure mithril
 m.route.mode = "pathname";
+
+//Init authentication
+authentication.init();
 
 //Render the header:
 var header = require('./components/header/header.controller');
@@ -15,5 +21,6 @@ var login = require('./components/login/login.controller');
 m.route(document.getElementById("content"), '/', {
   '/': home,
   '/releases': releases,
-  '/login': login
+  '/login': login,
+  '/login/:action': login
 });
