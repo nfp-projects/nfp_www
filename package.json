@@ -11,7 +11,7 @@
     "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
     "build:js": "npm run build:jsx && browserify -u mithril -u jso-browser assets/js/main.js -o dist/js/main.js --debug",
     "watch:js": "watch \"npm run build:js\" assets/js/",
-    "build": "npm run build:js && npm run build:res",
+    "build": "npm run build:js && npm run build:res && npm run build:styl",
     "build:watch": "parallelshell \"npm run watch:js\" \"npm run build:res\" \"npm run watch:styl\"",
     "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/base.html -s ./dist",
     "start:watch": "watch \"npm start\" dist"
