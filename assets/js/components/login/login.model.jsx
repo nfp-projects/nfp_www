@@ -6,6 +6,7 @@ var _ = require('lodash');
 
 //Internal modules
 var auth = require('../../helpers/authentication');
+var api = require('../../helpers/api');
 
 var login = {};
 
@@ -21,30 +22,22 @@ login.vm = (function() {
     vm.oauthLogin = function(provider) {
       var token = auth.jso.getToken(provider);
       if (!token) {
-        console.log('ERROR, UNABLE TO LOGIN');
-        vm.errors('Unable to login with ' + provider);
         vm.logging(false);
-        return m.endComputation();
+        return m.redraw();
       }
-      console.log('SUCCESS');
-      console.log(token);
       vm.authenticate({google: token.access_token});
-      m.route('/');
-      m.endComputation();
     }
 
     vm.login = function(method) {
       vm.logging(true);
 
       if (method !== 'local') {
-        m.startComputation();
-
         //Check to see if we maybe already have the token.
         var token = auth.jso.getToken(method)
         if (token) return vm.oauthLogin(method);
 
         return auth.jso.authRequest(
-                'google',
+                method,
                 auth.scopes[method],
                 _.partial(vm.oauthLogin, method));
       }
@@ -57,18 +50,17 @@ login.vm = (function() {
     };
 
     vm.authenticate = function(opt) {
-      vm.logging(false);
-      //Send api authenticate request. For now we'll just allow
-      if (opt.username !== undefined) {
-        if (opt.username !== 'test' ||
-            opt.password !== 'test') {
-          vm.errors('Wrong username or password (did you type in test?)');
-          return m.endComputation();
-        }
-      }
-      auth.authenticated('temp');
-      m.route('/');
-      m.endComputation();
+      api.post('/authenticate', opt).then(function(res) {
+        console.log(res);
+        vm.logging(false);
+        auth.authenticated(res);
+        m.route('/');
+      }, function(error) {
+        vm.logging(false);
+        console.log('ERROR LOGGING IN');
+        console.log(error);
+        vm.errors("Error while logging in. Make sure the username or password are correct.");
+      });
     };
 
     vm.logout = function() {

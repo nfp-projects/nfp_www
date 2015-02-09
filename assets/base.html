@@ -1,18 +1,28 @@
 <!doctype html>
-<meta charset="utf-8"> 
-<title><%- name %></title>
-<link rel="stylesheet" href="css/main.css">
-<body>
-  <div class="container">
-    <div id="header" class="header"></div>
-    <div id="content" class="content"></div>
-    <div id="footer" class="footer"></div>
-  </div>
-  <script>
-  var dbug = {};
-  </script>
-  <script src="/js/lib/jso.js"></script>
-  <script src="/js/lib/lodash.js"></script>
-  <script src="/js/lib/mithril.js"></script>
-  <script src="/js/main.js"></script>
-</body
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <title><%- name %></title>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <main role="main" id="content">
+      <div class="page-loader">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+    <script>
+    var dbug = {};
+    </script>
+    <!--<script src="/js/lib/jso.js"></script>
+    <script src="/js/lib/lodash.js"></script>
+    <script src="/js/lib/mithril.js"></script>-->
+    <script src="<%- NODE_ENV === 'production' ? '/js/main.min.js' : '/js/main.js' %>"></script>
+  </body>
+</html>

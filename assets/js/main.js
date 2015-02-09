@@ -1,4 +1,19 @@
+/**
+ * @license
+ * nfp_www <https://nfp.is/>
+ * Copyright 2015 Jonatan Nilsson <http://jonatan.nilsson.is/>
+ *
+ * All code for current website can be found on
+ * https://github.com/nfp-projects/nfp_www in its original format.
+ *
+ * Available under WTFPL License (http://www.wtfpl.net/txt/copying/)
+*/
+
 'use strict';
+
+//Helper modules
+require('es6-promise').polyfill();
+require('fastclick')(document.body);
 
 var m = require('mithril');
 var authentication = require('./helpers/authentication');
@@ -24,3 +39,15 @@ m.route(document.getElementById("content"), '/', {
   '/login': login,
   '/login/:action': login
 });
+
+setTimeout(function() {
+  
+  
+  
+
+  
+}, 2000);
+
+
+
+

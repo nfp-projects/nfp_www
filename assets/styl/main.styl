@@ -1,4 +1,29 @@
 
+@require "nib"
+
+@require "utils/mixins"
+
+body
+  margin: 0px auto
+  background-color: #FAFAFA
+  font-family: "Open Sans"
+  
+.page-loader
+  display: table
+  position: absolute;
+  width: 100%
+  height: 100%
+  width: 100%
+  
+  .spinner
+    display: table-cell
+    text-align: center
+    vertical-align: middle
+
 @require "head"
 
 @require "assets/styl/utils/spinner"
+
+@import "libs/normalize.css"
+
+@import "libs/foundation.css"

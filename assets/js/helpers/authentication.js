@@ -42,4 +42,8 @@ auth.logout = function() {
   jso.wipe();
 };
 
+auth.config = function(xhr) {
+  xhr.setRequestHeader("Content-Type", "application/json");
+};
+
 module.exports = auth;
