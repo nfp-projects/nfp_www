@@ -2,6 +2,7 @@
 
 var m = require('mithril');
 var auth = require('./authentication');
+var _ = require('lodash');
 
 var apiUrl = 'http://localhost:3000';
 var api = {};
@@ -13,23 +14,25 @@ api._unwrapError = function(data, xhr) {
   };
 };
 
-api.get = function(path) {
-  return m.request({
+api.get = function(path, options) {
+  options = _.defaults(options || {}, {
     method: 'GET',
     url: apiUrl + path,
     unwrapError: api._unwrapError,
-    config: auth.config()
+    config: auth.config
   });
+  return m.request(options);
 };
 
-api.post = function(path, data) {
-  return m.request({
+api.post = function(path, data, options) {
+  options = _.defaults(options || {}, {
     method: 'POST',
     url: apiUrl + path,
     data: data,
     unwrapError: api._unwrapError,
     config: auth.config
   });
+  return m.request(options);
 };
 
 module.exports = api;
