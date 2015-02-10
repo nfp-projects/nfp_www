@@ -1,10 +1,12 @@
 'use strict';
 
+//Global modules
 var m = require('mithril');
-var login = require('./login.model');
 
-//this enforces that view is loaded with the controller.
-require('./login.view');
+//Local modules
+var login = require('./login.model');
+require('./login.view'); //load the view
+
 
 login.controller = function() {
   this.action = m.route.param('action');
