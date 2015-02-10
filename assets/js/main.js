@@ -27,15 +27,19 @@ authentication.init();
 //The routes for this website.
 var home = require('./components/home/home.controller');
 var releases = require('./components/releases/releases.controller');
+var profile = require('./components/profile/profile.controller');
 var login = require('./components/login/login.controller');
 
 m.route(document.getElementById('content'), '/', {
   '/': home,
   '/releases': releases,
+  '/profile': profile,
   '/login': login,
   '/login/:action': login
 });
 
-//Render the header
+//Render the header & footer
 var header = require('./components/header/header.controller');
+var footer = require('./components/footer/footer.controller');
 m.module(document.getElementById('header'), header);
+m.module(document.getElementById('footer'), footer);

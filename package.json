@@ -5,17 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:res": "browserify -r mithril -o dist/js/lib/mithril.js && browserify -r lodash -o dist/js/lib/lodash.js && browserify -r jso-browser -o dist/js/lib/jso.js",
     "build:styl": "stylus -I node_modules assets/styl/main.styl --out dist/css",
     "watch:styl": "stylus -w -I node_modules assets/styl/main.styl --out dist/css",
     "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
+    "watch:jsx": "msx --watch -x jsx --no-precompile assets/js/ assets/js/",
     "build:js": "npm run build:jsx && browserify assets/js/main.js -o dist/js/main.js --debug",
-    "watch:js": "watch \"npm run build:js\" assets/js/",
+    "watch:js": "watchify assets/js/main.js -o dist/js/main.js --debug",
     "compile:js": "ccjs dist/js/main.js --compilation_level=SIMPLE_OPTIMIZATIONS --language_in=ECMASCRIPT5 > dist/js/main.min.js",
     "build": "npm run build:js && npm run build:styl && npm run compile:js",
-    "build:watch": "parallelshell \"npm run watch:js\" \"npm run watch:styl\"",
-    "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/base.html -s ./dist",
-    "start:watch": "watch \"npm start\" dist"
+    "build:watch": "parallelshell \"npm run watch:jsx\" \"npm run watch:js\" \"npm run watch:styl\"",
+    "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/html/base.html -s ./dist"
   },
   "repository": {
     "type": "git",
@@ -32,7 +31,8 @@
     "nodemon": "^1.3.5",
     "parallelshell": "^1.0.4",
     "stylus": "^0.50.0",
-    "watch": "^0.13.0"
+    "watch": "^0.13.0",
+    "watchify": "^2.3.0"
   },
   "dependencies": {
     "app-root-path": "^1.0.0",

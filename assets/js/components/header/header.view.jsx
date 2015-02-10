@@ -8,27 +8,27 @@ var header = require('./header.model');
 var auth = require('../../helpers/authentication');
 
 header.view = function(c) {
-  return <nav>
-          <ul>
-            <li>
-              <a href="/" config={m.route}> Home </a>
-            </li>
-            <li>
-              <a href="/releases" config={m.route}> Releases </a>
-            </li>
+  var size = 'medium-2';
+  return <div class="header">
+          <nav class="navigation">
+            <div class="row">
+              <div class={size + " navigation-item columns"}>
+                <a href="/releases" config={m.route}> Releases </a>
+              </div>
               {c.menu().map(function(item) {
-                return <li>{item.title}</li>;
+                return <div class={size + " navigation-item columns"}>{item.title}</div>;
               })}
-            <li style={{display: auth.loggedIn() ? 'none' : 'list-item'}}>
-              <a href="/login" config={m.route}> Login </a>
-            </li>
-            <li style={{display: auth.loggedIn() ? 'none' : 'list-item'}}>
-              <a href="/login" config={m.route}> Register </a>
-            </li>
-            <li style={{display: auth.loggedIn() ? 'list-item' : 'none'}}>
-              <a href="/login/logout" config={m.route}> Logout </a>
-            </li>
-          </ul>
-        </nav>;
+              <div class={size + " navigation-item columns"}>
+                <a href="/profile" config={m.route}> Profile </a>
+              </div>
+              <div class={size + " navigation-item columns"} style={{display: auth.loggedIn() ? "block" : "none"}}>
+                <a href="/login/logout" config={m.route}> Logout </a>
+              </div>
+              <div class={size + " navigation-item navigation-item--last columns"}>
+                <a href="/" config={m.route}>NFP</a>
+              </div>
+            </div>
+          </nav>
+        </div>;
 };
 
