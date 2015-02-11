@@ -1,6 +1,6 @@
 nfp_www
 =======
-This is a mithril MVVM frontend for nfp_api for a private website.
+This is a mithril MVC frontend for nfp_api for a private website.
 
 The objective of this was not to rewrite nfp.is site but mostly to test mithril and get a feel for it.
 
