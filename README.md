@@ -7,8 +7,6 @@ The objective of this was not to rewrite nfp.is site but mostly to test mithril 
 Installation & Run
 ------------------
 
-Since we use Koa (web framework that uses generators) make sure you install Node 0.11 since previous versions of node don't support generators.
-
 ```bash
 npm install
 npm run build
