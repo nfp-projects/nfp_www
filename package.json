@@ -41,7 +41,7 @@
     "closurecompiler": "^1.5.1",
     "es6-promise": "^2.0.1",
     "fastclick": "^1.0.6",
-    "jso-browser": "git://github.com/TheThing/jso",
+    "jso-browser": "TheThing/jso",
     "koa": "^0.16.0",
     "koa-bunyan": "0.0.2",
     "koa-static": "^1.4.8",
