@@ -1,2 +1,2 @@
-docker build -t node .
+docker build -t iojs .
 
