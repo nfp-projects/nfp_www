@@ -4,7 +4,7 @@ var m = require('mithril');
 var auth = require('./authentication');
 var _ = require('lodash');
 
-var apiUrl = 'http://localhost:3000';
+var apiUrl = 'https://api.nfp.is';
 var api = {};
 
 api._unwrapError = function(data, xhr) {
