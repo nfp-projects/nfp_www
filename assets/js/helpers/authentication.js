@@ -1,7 +1,6 @@
 'use strict';
 
 //Modules
-
 var jso = require('jso-browser');
 var m = require('mithril');
 
@@ -21,7 +20,8 @@ var auth = {};
 auth.loggedIn = m.prop(false);
 auth.jso = jso;
 auth.scopes = {
-  google: ['https://www.googleapis.com/auth/userinfo.profile']
+  google: ['https://www.googleapis.com/auth/userinfo.profile',
+           'https://www.googleapis.com/auth/userinfo.email']
 };
 
 auth.init = function() {

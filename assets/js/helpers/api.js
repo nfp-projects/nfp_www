@@ -10,7 +10,8 @@ var api = {};
 api._unwrapError = function(data, xhr) {
   return {
     status: xhr.status,
-    data: data
+    message: data.message,
+    body: data.body
   };
 };
 
@@ -36,3 +37,4 @@ api.post = function(path, data, options) {
 };
 
 module.exports = api;
+

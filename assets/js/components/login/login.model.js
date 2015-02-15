@@ -23,15 +23,19 @@ login.vm = (function() {
         return m.redraw();
       }
       vm.authenticate({google: token.access_token});
-    }
+    };
 
     vm.login = function(method) {
       vm.logging(true);
 
       if (method !== 'local') {
+        m.redraw(); //Get dat fancy loading bar
+
         //Check to see if we maybe already have the token.
-        var token = auth.jso.getToken(method)
-        if (token) return vm.oauthLogin(method);
+        var token = auth.jso.getToken(method);
+        if (token) {
+          return vm.oauthLogin(method);
+        }
 
         return auth.jso.authRequest(
                 method,
@@ -49,20 +53,18 @@ login.vm = (function() {
     vm.authenticate = function(opt) {
       api.post('/authenticate', opt).then(function(res) {
         console.log(res);
-        vm.logging(false);
         auth.authenticated(res);
         m.route('/');
       }, function(error) {
+        vm.errors('Unable to login: ' + error.message);
+      }).then(function() {
         vm.logging(false);
-        console.log('ERROR LOGGING IN');
-        console.log(error);
-        vm.errors("Error while logging in. Make sure the username or password are correct.");
       });
     };
 
     vm.logout = function() {
       auth.logout();
-    }
+    };
 
     return vm;
   };
