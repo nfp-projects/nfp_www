@@ -9,11 +9,6 @@ var apiUrl = {
   secure: 'https://api.nfp.is'
 };
 
-apiUrl = {
-  normal: 'http://localhost:3000',
-  secure: 'http://localhost:3000'
-};
-
 var api = {};
 
 api.url = function(secure) {
