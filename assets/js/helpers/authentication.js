@@ -8,8 +8,8 @@ var jwt_decode = require('jwt-decode');
 //Configure JSO
 jso.configure({
   google: {
-    client_id: '1076074914074-0v1jdrfjbacdkihmorbksl3v7jhkvqvi.apps.googleusercontent.com',
-    redirect_uri: 'http://localhost:3001/login/oauth2',
+    client_id: '1076074914074-7t84d0r4eakvtq2pt7mci5jeh7gj8eju.apps.googleusercontent.com',
+    redirect_uri: 'https://beta.nfp.is/login/oauth2',
     authorization: 'https://accounts.google.com/o/oauth2/auth',
     presenttoken: 'qs'
   }
