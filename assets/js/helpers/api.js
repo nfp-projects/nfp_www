@@ -4,16 +4,9 @@ var m = require('mithril');
 var auth = require('./authentication');
 var _ = require('lodash');
 
-var apiUrl = {
-  normal: 'http://api.nfp.is',
-  secure: 'https://api.nfp.is'
-};
+var apiUrl = 'https://api.nfp.is';
 
 var api = {};
-
-api.url = function(secure) {
-  return (auth.loggedIn || secure) && apiUrl.secure || apiUrl.normal;
-};
 
 api._unwrapError = function(data, xhr) {
   data = data || {};
@@ -33,7 +26,7 @@ api._unwrapError = function(data, xhr) {
 api.get = function(path, options) {
   options = _.defaults(options || {}, {
     method: 'GET',
-    url: api.url(options && options.secure) + path,
+    url: apiUrl + path,
     unwrapError: api._unwrapError,
     config: auth.config
   });
@@ -43,7 +36,7 @@ api.get = function(path, options) {
 api.post = function(path, data, options) {
   options = _.defaults(options || {}, {
     method: 'POST',
-    url: api.url(options && options.secure) + path,
+    url: apiUrl + path,
     data: data,
     unwrapError: api._unwrapError,
     config: auth.config
