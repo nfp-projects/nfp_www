@@ -8,7 +8,7 @@ var header = require('./header.model');
 var auth = require('../../helpers/authentication');
 
 header.view = function(c) {
-  var size = 'medium-2';
+  var size = 'medium-2 small-4';
   return <div class="header">
           <nav class="navigation">
             <div class="row">
@@ -21,7 +21,7 @@ header.view = function(c) {
               <div class={size + " navigation-item columns"}>
                 <a href="/profile" config={m.route}> Profile </a>
               </div>
-              <div class={size + " navigation-item columns"} style={{display: auth.loggedIn() ? "block" : "none"}}>
+              <div class={size + " navigation-item columns"} style={{display: auth.loggedIn ? "block" : "none"}}>
                 <a href="/login/logout" config={m.route}> Logout </a>
               </div>
               <div class={size + " navigation-item navigation-item--last columns"}>

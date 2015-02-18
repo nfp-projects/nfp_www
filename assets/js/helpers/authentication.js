@@ -3,7 +3,7 @@
 //Modules
 var jso = require('jso-browser');
 var m = require('mithril');
-
+var jwt_decode = require('jwt-decode');
 
 //Configure JSO
 jso.configure({
@@ -17,8 +17,9 @@ jso.configure({
 
 var auth = {};
 
-auth.loggedIn = m.prop(false);
+auth.loggedIn = false;
 auth.jso = jso;
+auth.user = null;
 auth.scopes = {
   google: ['https://www.googleapis.com/auth/userinfo.profile',
            'https://www.googleapis.com/auth/userinfo.email']
@@ -27,23 +28,42 @@ auth.scopes = {
 auth.init = function() {
   var access_token = localStorage.getItem('access_token');
   if (access_token) {
-    auth.loggedIn(true);
+    auth.loggedIn = true;
+    auth.decode(access_token);
   }
 };
 
-auth.authenticated = function(access_token) {
-  localStorage.setItem('access_token', access_token);
-  auth.loggedIn(true);
+auth.decode = function(token) {
+  auth.user = jwt_decode(token);
+  auth.verifyExp();
+};
+
+auth.verifyExp = function() {
+  if (auth.user && auth.user.exp) {
+    if (Math.floor(Date.now() / 1000) >= auth.user.exp) {
+      auth.logout();
+    }
+  }
+};
+
+auth.authenticated = function(authentication) {
+  localStorage.setItem('access_token', authentication.access_token);
+  auth.init();
 };
 
 auth.logout = function() {
   localStorage.removeItem('access_token');
-  auth.loggedIn(false);
+  auth.loggedIn = false;
+  auth.user = null;
   jso.wipe();
 };
 
 auth.config = function(xhr) {
   xhr.setRequestHeader("Content-Type", "application/json");
+  auth.verifyExp();
+  if (auth.loggedIn) {
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('access_token'));
+  }
 };
 
 module.exports = auth;

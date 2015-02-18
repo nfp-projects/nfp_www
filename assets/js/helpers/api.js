@@ -4,13 +4,33 @@ var m = require('mithril');
 var auth = require('./authentication');
 var _ = require('lodash');
 
-var apiUrl = 'https://api.nfp.is';
+var apiUrl = {
+  normal: 'http://api.nfp.is',
+  secure: 'https://api.nfp.is'
+};
+
+apiUrl = {
+  normal: 'http://localhost:3000',
+  secure: 'http://localhost:3000'
+};
+
 var api = {};
 
+api.url = function(secure) {
+  return (auth.loggedIn || secure) && apiUrl.secure || apiUrl.normal;
+};
+
 api._unwrapError = function(data, xhr) {
+  data = data || {};
+  if (xhr.status === 401) {
+    auth.logout();
+    m.route('/login');
+    var login = require('../components/login/login.model');
+    login.vm.errors('Unauthorized error, please re-login');
+  }
   return {
     status: xhr.status,
-    message: data.message,
+    message: data.message || 'Unknown critical error',
     body: data.body
   };
 };
@@ -18,7 +38,7 @@ api._unwrapError = function(data, xhr) {
 api.get = function(path, options) {
   options = _.defaults(options || {}, {
     method: 'GET',
-    url: apiUrl + path,
+    url: api.url(options && options.secure) + path,
     unwrapError: api._unwrapError,
     config: auth.config
   });
@@ -28,7 +48,7 @@ api.get = function(path, options) {
 api.post = function(path, data, options) {
   options = _.defaults(options || {}, {
     method: 'POST',
-    url: apiUrl + path,
+    url: api.url(options && options.secure) + path,
     data: data,
     unwrapError: api._unwrapError,
     config: auth.config

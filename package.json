@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "livereload": "live-reload --port 9091 dist/",
     "build:styl": "stylus -I node_modules assets/styl/main.styl --out dist/css",
     "watch:styl": "stylus -w -I node_modules assets/styl/main.styl --out dist/css",
     "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
@@ -13,7 +14,7 @@
     "watch:js": "watchify assets/js/main.js -o dist/js/main.js --debug",
     "compile:js": "ccjs dist/js/main.js --compilation_level=SIMPLE_OPTIMIZATIONS --language_in=ECMASCRIPT5 > dist/js/main.min.js",
     "build": "npm run build:js && npm run build:styl && npm run compile:js",
-    "build:watch": "parallelshell \"npm run watch:jsx\" \"npm run watch:js\" \"npm run watch:styl\"",
+    "build:watch": "parallelshell \"npm run watch:jsx\" \"npm run watch:js\" \"npm run watch:styl\" \"npm run livereload\"",
     "start": "spserver -c ./config/config.json -b -n nfp_www -t -f ./assets/html/base.html -s ./dist"
   },
   "repository": {
@@ -40,6 +41,8 @@
     "es6-promise": "^2.0.1",
     "fastclick": "^1.0.6",
     "jso-browser": "TheThing/jso",
+    "jwt-decode": "^1.0.0",
+    "live-reload": "^0.2.0",
     "lodash": "^3.0.0",
     "mithril": "^0.1.29",
     "msx": "^0.3.0",

@@ -32,7 +32,6 @@ assets/js/components/**/*.view.js
 
 # lol, I should find a workaround for this
 assets/js/components/releases/releases.controller.js
-assets/js/components/profile/profile.controller.js
 assets/js/components/footer/footer.controller.js
 
 # Runtime config

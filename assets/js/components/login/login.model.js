@@ -25,7 +25,8 @@ login.vm = (function() {
       vm.authenticate({google: token.access_token});
     };
 
-    vm.login = function(method) {
+    vm.login = function(method, e) {
+      e.preventDefault();
       vm.logging(true);
 
       if (method !== 'local') {
@@ -51,7 +52,7 @@ login.vm = (function() {
     };
 
     vm.authenticate = function(opt) {
-      api.post('/authenticate', opt).then(function(res) {
+      api.post('/authenticate', opt, {secure: true}).then(function(res) {
         console.log(res);
         auth.authenticated(res);
         m.route('/');
