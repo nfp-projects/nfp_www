@@ -27,13 +27,16 @@ header.vm = (function() {
         background: !!menu,
         initialValue: menu
       }).then(function(data) {
+        var redraw = localStorage.getItem('header_menu') !== JSON.stringify(data);
         localStorage.setItem('header_menu', JSON.stringify(data));
 
-        //we can't call m.render() in case some other computation
-        //is currently running and since we can't check if there
-        //are pending requests, we call start and end.
-        m.startComputation();
-        m.endComputation();
+        if (redraw) {
+          //we can't call m.redraw() in case some other computation
+          //is currently running and since we can't check if there
+          //are pending requests, we call start and end.
+          m.startComputation();
+          m.endComputation();
+        }
         return data;
       });
     }

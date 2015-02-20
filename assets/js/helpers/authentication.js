@@ -1,15 +1,15 @@
 'use strict';
+/* global settings */
 
 //Modules
 var jso = require('jso-browser');
-var m = require('mithril');
 var jwt_decode = require('jwt-decode');
 
 //Configure JSO
 jso.configure({
   google: {
-    client_id: '1076074914074-7t84d0r4eakvtq2pt7mci5jeh7gj8eju.apps.googleusercontent.com',
-    redirect_uri: 'https://beta.nfp.is/login/oauth2',
+    client_id: settings.google_api,
+    redirect_uri: settings.redirect_url,
     authorization: 'https://accounts.google.com/o/oauth2/auth',
     presenttoken: 'qs'
   }

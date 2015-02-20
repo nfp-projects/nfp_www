@@ -1,10 +1,11 @@
 'use strict';
+/* global settings */
 
 var m = require('mithril');
 var auth = require('./authentication');
 var _ = require('lodash');
 
-var apiUrl = 'https://api.nfp.is';
+var apiUrl = settings.api_url;
 
 var api = {};
 

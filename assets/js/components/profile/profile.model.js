@@ -1,15 +1,11 @@
 'use strict';
 
-var m = require('mithril');
+var forge = require('../../helpers/forge');
 var api = require('../../helpers/api');
 
 var profile = {};
 
-profile.vm = (function() {
-  var vm = {};
-
-  vm.errors = m.prop('');
-  vm.working = m.prop(false);
+profile.vm = forge(function(vm) {
   vm.user = {};
 
   vm.formUpdate = function(e) {
@@ -20,22 +16,26 @@ profile.vm = (function() {
     api.get('/profile').then(function(data) {
       console.log(data);
       vm.user = data;
+    }, function(error) {
+      vm.error('Error while retrieving profile: ' + error.message);
     });
-
-    return vm;
   };
 
   vm.submit = function(e) {
     e.preventDefault();
-    vm.working(true);
+    vm.working = true;
     api.post('/profile', vm.user).then(function(data) {
-      vm.working(false);
+      vm.success('Successfully updated profile');
+      vm.working = false;
       console.log(data);
       vm.user = data;
+    }, function(error) {
+      vm.error('Error while updating profile: ' + error.message);
     });
   };
+});
 
-  return vm;
-}());
+window.debug = {};
+window.debug.profile = profile;
 
 module.exports = profile;
