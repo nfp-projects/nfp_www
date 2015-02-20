@@ -1,13 +1,14 @@
 'use strict';
 
 var m = require('mithril');
+var modules = require('../modules.view');
 var profile = require('./profile.model');
 
 profile.view = function(ctrl) {
-  var message = ctrl.vm.message();
+  
   return <div class="profile">
           <form class="profile-form" type="post" onchange={ctrl.vm.formUpdate}>
-            <p key="message" class={'profile-message profile-message--' + (message && message.type || 'none')}>{message && message.message || ''}</p>
+            {modules.message(ctrl)}
             <div class="row">
               <div class="large-12 columns">
                 <label>Username<span class="profile-meta">(display name)</span>
