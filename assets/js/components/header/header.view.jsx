@@ -10,7 +10,6 @@ var auth = require('../../helpers/authentication');
 header.view = function(c) {
   var size = 'medium-2';
   return <div class="header">
-          <a class="header-logo" href="/" config={m.route}></a>
           <nav class="navigation">
             <div class="row">
               <div class={size + " navigation-item columns"}>
