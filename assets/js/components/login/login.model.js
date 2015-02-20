@@ -4,22 +4,21 @@ var m = require('mithril');
 var _ = require('lodash');
 var auth = require('../../helpers/authentication');
 var api = require('../../helpers/api');
+var forge = require('../../helpers/forge');
 
 var login = {};
 
-login.vm = (function() {
-  var vm = {};
+login.vm = forge(function(vm) {
 
   vm.init = function() {
     vm.username = m.prop('');
     vm.password = m.prop('');
     vm.errors = m.prop('');
-    vm.logging = m.prop(false);
 
     vm.oauthLogin = function(provider) {
       var token = auth.jso.getToken(provider);
       if (!token) {
-        vm.logging(false);
+        vm.working = false;
         return m.redraw();
       }
       vm.authenticate({google: token.access_token});
@@ -27,7 +26,7 @@ login.vm = (function() {
 
     vm.login = function(method, e) {
       e.preventDefault();
-      vm.logging(true);
+      vm.working = true;
 
       if (method !== 'local') {
         m.redraw(); //Get dat fancy loading bar
@@ -57,20 +56,17 @@ login.vm = (function() {
         auth.authenticated(res);
         m.route('/');
       }, function(error) {
-        vm.errors('Unable to login: ' + error.message);
+        vm.error('Unable to login: ' + error.message);
       }).then(function() {
-        vm.logging(false);
+        vm.working = false;
       });
     };
 
     vm.logout = function() {
       auth.logout();
     };
-
-    return vm;
   };
 
-  return vm;
-}());
+});
 
 module.exports = login;

@@ -11,6 +11,10 @@
 
 'use strict';
 
+//Add debug components to window. Allows us to play with controls
+//in the console. 
+window.components = {};
+
 //Helper modules
 require('es6-promise').polyfill();
 require('fastclick')(document.body);
@@ -29,13 +33,15 @@ var home = require('./components/home/home.controller');
 var releases = require('./components/releases/releases.controller');
 var profile = require('./components/profile/profile.controller');
 var login = require('./components/login/login.controller');
+var generic = require('./components/generic/generic.controller');
 
 m.route(document.getElementById('content'), '/', {
   '/': home,
   '/releases': releases,
   '/profile': profile,
   '/login': login,
-  '/login/:action': login
+  '/login/:action': login,
+  '/:other...': generic('not_found')
 });
 
 //Render the header & footer

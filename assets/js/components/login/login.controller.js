@@ -17,6 +17,9 @@ login.controller = function() {
     m.route('/profile');
   }
 
+  if (!this.action || this.action === 'forgot') {
+    return;
+  }
   if (this.action === 'oauth2') {
     if (window.opener) {
       return window.close();
@@ -27,6 +30,7 @@ login.controller = function() {
     this.vm.logout();
     return m.route('/');
   }
+  return m.route('/profile');
 };
 
 module.exports = login;

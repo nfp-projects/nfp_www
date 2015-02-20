@@ -35,7 +35,6 @@ profile.vm = forge(function(vm) {
   };
 });
 
-window.debug = {};
-window.debug.profile = profile;
+window.components.profile = profile;
 
 module.exports = profile;

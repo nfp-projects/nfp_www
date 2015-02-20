@@ -8,37 +8,42 @@ profile.view = function(ctrl) {
   
   return <div class="profile">
           <form class="profile-form" type="post" onchange={ctrl.vm.formUpdate}>
-            {modules.message(ctrl)}
+            {modules.message(ctrl, 'profile')}
             <div class="row">
               <div class="large-12 columns">
                 <label>Username<span class="profile-meta">(display name)</span>
-                  <input type="text" name="username" value={profile.vm.user.username || '...'} />
+                  <input type="text" name="username" value={ctrl.vm.user.username || '...'} />
                 </label>
               </div>
               <div class="large-12 columns">
                 <label>Email<span class="profile-meta">(requires confirmation)</span>
-                  <input type="text" name="email" value={profile.vm.user.email || '...'} />
+                  <input type="text" name="email" value={ctrl.vm.user.email || '...'} />
                 </label>
               </div>
               <div class="large-12 columns">
                 <label>Name
-                  <input type="text" name="name" value={profile.vm.user.name || '...'} />
+                  <input type="text" name="name" value={ctrl.vm.user.name || '...'} />
                 </label>
               </div>
-              <div class="large-12 columns">
+              <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Current Password<span class="profile-meta">(to change password)</span>
                   <input type="password" name="current_password" />
                 </label>
               </div>
-              <div class="large-12 columns">
+              <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Password
                   <input type="password" name="password" />
                 </label>
               </div>
-              <div class="large-12 columns">
+              <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Confirm Password
                   <input type="password" name="confirm_password" />
                 </label>
+              </div>
+              <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'none' : 'block'}}>
+                <p class="profile-disclaimer">This account was created through google and has no password.
+                  To configure a password, use <a href="/login/forgot" config={m.route}>password reset</a>.
+                </p>
               </div>
             </div>
             <div class="row" style={{display: ctrl.vm.working ? 'block' : 'none'}}>
