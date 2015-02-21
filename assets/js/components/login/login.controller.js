@@ -13,11 +13,17 @@ login.controller = function() {
   this.action = m.route.param('action');
   this.vm = login.vm.init();
 
-  if (!this.action && auth.loggedIn) {
-    m.route('/profile');
+  if (!this.action) {
+    this.action = 'login';
   }
 
-  if (!this.action || this.action === 'forgot') {
+  if (this.action === 'login' &&
+      auth.loggedIn) {
+    return m.route('/profile');
+  }
+
+  if (this.action === 'login' ||
+      this.action === 'forgot') {
     return;
   }
   if (this.action === 'oauth2') {
@@ -30,7 +36,6 @@ login.controller = function() {
     this.vm.logout();
     return m.route('/');
   }
-  return m.route('/profile');
 };
 
 module.exports = login;

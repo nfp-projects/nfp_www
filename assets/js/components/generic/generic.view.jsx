@@ -14,3 +14,21 @@ exports.not_found = function() {
       </div>
     </div>
 }
+
+exports.error = function(error) {
+  console.error(error);
+  var stack = '';
+  if (error.stack) {
+    stack = error.stack.replace(/>/g, '&gt;');
+    stack = stack.replace(/</g, '&lt;');
+    stack = stack.replace(/\n/g,'<br />');
+  }
+  return <main class="generic-error">
+      <section class="generic-error-box">
+        <div class="generic-error-box-img"></div>
+        <h4 class="generic-error-box-title">Unhandled Error Occured: {error.message}</h4>
+        <a class="generic-error-box-link" href="/">Click here to go back to Home</a>
+        <p class="generic-error-box-stack">{m.trust(stack)}</p>
+      </section>
+    </main>
+}

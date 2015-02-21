@@ -5,30 +5,38 @@
 var _ = require('lodash');
 var m = require('mithril');
 var header = require('./header.model');
+var modules = require('../modules.view');
 var auth = require('../../helpers/authentication');
+var helper = require('../../helpers/view');
 
 header.view = function(c) {
   var size = 'medium-2';
+  var route = m.route();
+  var breadcrumbs = _.compact(route.split('/'));
+  var previous = '';
   return <div class="header">
           <nav class="navigation">
             <div class="row">
-              <div class={size + " navigation-item columns"}>
-                <a href="/" config={m.route}> NFP </a>
-              </div>
+              {modules.header_link(c, '/', 'NFP', size + " navigation-item navigation-item--first columns")}
               {c.menu().map(function(item) {
-                return <div class={size + " navigation-item columns"}>{item.title}</div>;
+                return modules.header_link(c, '/', item.title, size + " navigation-item columns");
               })}
-              <div class={size + " navigation-item columns end"} style={{display: auth.loggedIn ? "none" : "block"}}>
-                <a href="/login" config={m.route}> Login </a>
-              </div>
-              <div class={size + " navigation-item columns"} style={{display: auth.loggedIn ? "block" : "none"}}>
-                <a href="/profile" config={m.route}> Profile </a>
-              </div>
-              <div class={size + " navigation-item columns end"} style={{display: auth.loggedIn ? "block" : "none"}}>
-                <a href="/login/logout" config={m.route}> Logout </a>
-              </div>
+              {modules.header_link(c, '/login', 'Login', size + " navigation-item columns end", auth.loggedIn)}
+              {modules.header_link(c, '/profile', 'Profile', size + " navigation-item columns", !auth.loggedIn)}
+              {modules.header_link(c, '/login/logout', 'Logout', size + " navigation-item columns end", !auth.loggedIn)}
             </div>
           </nav>
+          <ul class="breadcrumbs header-breadcrumbs">
+            {breadcrumbs.map(function(item) {
+              var prefix = null;
+              previous += '/' + item;
+              return <li class={previous === route ?'current' : ''}>
+                  <a class="header-breadcrumbs-item"
+                    href={previous}
+                    config={helper.link}>{item}</a>
+                </li>
+            })}
+          </ul>
         </div>;
 };
 

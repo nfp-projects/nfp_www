@@ -20,32 +20,39 @@ require('es6-promise').polyfill();
 require('fastclick')(document.body);
 
 var m = require('mithril');
-var authentication = require('./helpers/authentication');
 
-//Configure mithril
-m.route.mode = 'pathname';
+try
+{
+  var authentication = require('./helpers/authentication');
 
-//Init authentication
-authentication.init();
+  //Configure mithril
+  m.route.mode = 'pathname';
 
-//The routes for this website.
-var home = require('./components/home/home.controller');
-var releases = require('./components/releases/releases.controller');
-var profile = require('./components/profile/profile.controller');
-var login = require('./components/login/login.controller');
-var generic = require('./components/generic/generic.controller');
+  //Init authentication
+  authentication.init();
 
-m.route(document.getElementById('content'), '/', {
-  '/': home,
-  '/releases': releases,
-  '/profile': profile,
-  '/login': login,
-  '/login/:action': login,
-  '/:other...': generic('not_found')
-});
+  //The routes for this website.
+  var home = require('./components/home/home.controller');
+  var releases = require('./components/releases/releases.controller');
+  var profile = require('./components/profile/profile.controller');
+  var login = require('./components/login/login.controller');
+  var generic = require('./components/generic/generic.controller');
 
-//Render the header & footer
-var header = require('./components/header/header.controller');
-var footer = require('./components/footer/footer.controller');
-m.module(document.getElementById('header'), header);
-m.module(document.getElementById('footer'), footer);
+  m.route(document.getElementById('content'), '/', {
+    '/': home,
+    '/releases': releases,
+    '/profile': profile,
+    '/login': login,
+    '/login/:action': login,
+    '/:other...': generic('not_found')
+  });
+
+  //Render the header & footer
+  var header = require('./components/header/header.controller');
+  var footer = require('./components/footer/footer.controller');
+  m.module(document.getElementById('header'), header);
+  m.module(document.getElementById('footer'), footer);
+}
+catch (error) {
+  m.render(document.getElementById('container'), generic('error').view(error));
+}

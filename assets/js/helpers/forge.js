@@ -32,7 +32,7 @@ module.exports = function(builder) {
   builder(vm);
 
   //Wrap init so it always returns the vm
-  vm._init = vm.init;
+  vm._init = vm.init || function() {};
   vm.init = function() {
     message = null;
     vm._init();
@@ -41,4 +41,3 @@ module.exports = function(builder) {
 
   return vm;
 };
-

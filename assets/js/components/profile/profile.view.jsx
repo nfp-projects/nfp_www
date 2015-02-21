@@ -3,6 +3,7 @@
 var m = require('mithril');
 var modules = require('../modules.view');
 var profile = require('./profile.model');
+var helper = require('../../helpers/view');
 
 profile.view = function(ctrl) {
   
@@ -40,9 +41,12 @@ profile.view = function(ctrl) {
                   <input type="password" name="confirm_password" />
                 </label>
               </div>
+              <div class="small-4 columns" style={{display: ctrl.vm.working ? 'none' : 'block'}}>
+                <button class="login-button button secondary small" onclick={ctrl.vm.submit}>Save</button>
+              </div>
               <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'none' : 'block'}}>
                 <p class="profile-disclaimer">This account was created through google and has no password.
-                  To configure a password, use <a href="/login/forgot" config={m.route}>password reset</a>.
+                  To configure a password, use <a href="/login/forgot" config={helper.link}>password reset</a>.
                 </p>
               </div>
             </div>
@@ -53,11 +57,6 @@ profile.view = function(ctrl) {
                   <div class="bounce2"></div>
                   <div class="bounce3"></div>
                 </div>
-              </div>
-            </div>
-            <div class="row" style={{display: ctrl.vm.working ? 'none' : 'block'}}>
-              <div class="small-4 columns">
-                <button class="login-button button secondary small" onclick={ctrl.vm.submit}>Save</button>
               </div>
             </div>
           </form>

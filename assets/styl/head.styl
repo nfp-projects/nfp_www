@@ -3,15 +3,25 @@ menu-height = 50px
 #header
   max-width: 1000px
   margin: 0 auto 1.5rem
-  padding: 0 10px
+  padding: 1.5rem 0.7rem 0
 
 .header
   /*margin: 0 10px*/
   text-align: center
   background: #545454
   border-radius: 7px
-  padding-bottom: 30px
   position: relative
+
+.header-breadcrumbs
+  background: transparent !important
+  border: 0 !important
+  height: 1.8rem !important
+
+.header-breadcrumbs-item
+  color: #FFF !important
+
+.current .header-breadcrumbs-item
+  color: #ccc !important
 
 .navigation
   border-bottom: 1px solid #000000
@@ -23,6 +33,12 @@ menu-height = 50px
   border-right: 1px solid #000000
   border-bottom: 1px solid #000000
   margin-bottom: -1px
+
+.navigation-item--first
+  border-radius: 7px 0 0 0
+  
+.navigation-item--selected
+  background: #252525
 
 .navigation-item--last
   border-right: none

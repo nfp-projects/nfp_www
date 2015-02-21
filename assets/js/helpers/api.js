@@ -19,8 +19,8 @@ api._unwrapError = function(data, xhr) {
   }
   return {
     status: xhr.status,
-    message: data.message || 'Unknown critical error',
-    body: data.body
+    message: (data && data.message) || 'Unknown critical error',
+    body: data && data.body
   };
 };
 

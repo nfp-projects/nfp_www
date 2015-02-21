@@ -4,19 +4,27 @@ var _ = require('lodash');
 var m = require('mithril');
 var modules = require('../modules.view');
 var login = require('./login.model');
+var views = require('../generic/generic.view');
+var helper = require('../../helpers/view');
 
 login.view = function(ctrl) {
-  return (login.view[ctrl.action] || login.view.default)(ctrl);
+  return (login.view[ctrl.action] || views.not_found)(ctrl);
 };
 
 login.view.oauth2 = function(ctrl) {
-  return <div>
+  return <section>
           <p>Redirecting back to login</p>
-        </div>;
+        </section>;
 };
 
-login.view.default = function(ctrl) {
-  return <div class="login">
+login.view.login = function(ctrl) {
+  return <section class="login">
+          <header class="login-header">
+            <div class="login-header-inside">
+              <h3>Login</h3>
+              <div class="login-header-inside-image login-header-inside-image--login"></div>
+            </div>
+          </header>
           <form class="login-form" type="post">
             {modules.message(ctrl, 'login')}
             <div class="row">
@@ -53,28 +61,41 @@ login.view.default = function(ctrl) {
               </div>
             </div>
             <div class="login-meta">
-              <a href="/login/signup" config={m.route}>Don&apos;t have an account? Signup now!</a>
-              <a href="/login/forgot" config={m.route}>Forgot your password?</a>
+              <a href="/login/signup" config={helper.link}>Don&apos;t have an account? Signup now!</a>
+              <a href="/login/forgot" config={helper.link}>Forgot your password?</a>
             </div>
           </form>
-        </div>;
+        </section>;
 };
 
 login.view.forgot = function(ctrl) {
-  return <div class="login">
+  return <section class="login">
+          <header class="login-header">
+            <div class="login-header-inside">
+              <h3 class="login-header-inside--forgot">Forgot Password</h3>
+              <div class="login-header-inside-image login-header-inside-image--forgot"></div>
+            </div>
+          </header>
       <form class="forgot-form" type="post">
         {modules.message(ctrl, 'profile')}
         <div class="row">
+          <div class="large-12 columns columns-centered">
+            <p class="profile-disclaimer">
+              If you forgot your password, or your account doesn&apos;t
+              have password, you can reset it by typing in your email in
+              the field below.
+            </p>
+          </div>
           <div class="large-12 columns">
             <label>Email
-              <input type="text" name="email" />
+              <input type="text" name="email" onchange={m.withAttr('value', ctrl.vm.email)} value={ctrl.vm.email()} />
             </label>
           </div>
           <div class="small-12 columns columns-centered"
               style={{display: ctrl.vm.working ? 'none' : 'block'}}>
             <button class="login-button button secondary small"
-                    onclick={ctrl.vm.submit}>
-              Send Password Reset Email
+                    onclick={ctrl.vm.forgot}>
+              Reset My Password
             </button>
           </div>
           <div class="large-12 columns"
@@ -85,14 +106,7 @@ login.view.forgot = function(ctrl) {
               <div class="bounce3"></div>
             </div>
           </div>
-          <div class="large-12 columns columns-centered">
-            <p class="profile-disclaimer">
-              A password reset email will be sent to the
-              above email address.
-            </p>
-            <div class="forgot-image"></div>
-          </div>
         </div>
       </form>
-    </div>
+    </section>
 };

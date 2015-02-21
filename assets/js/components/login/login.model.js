@@ -13,6 +13,7 @@ login.vm = forge(function(vm) {
   vm.init = function() {
     vm.username = m.prop('');
     vm.password = m.prop('');
+    vm.email = m.prop('');
     vm.errors = m.prop('');
 
     vm.oauthLogin = function(provider) {
@@ -48,6 +49,13 @@ login.vm = forge(function(vm) {
         username: vm.username(),
         password: vm.password()
       });
+    };
+
+    vm.forgot = function(e) {
+      e.preventDefault();
+      vm.working = true;
+
+      api.post('/profile/');
     };
 
     vm.authenticate = function(opt) {

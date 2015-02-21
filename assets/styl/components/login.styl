@@ -1,16 +1,63 @@
 .login
-  margin: 2rem auto 0
   text-align: left
-  border: 1px solid #CECECE
-  border-bottom: none
   min-height: 500px
-  padding: 1.5rem
-  border-radius: 7px 7px 0px 0px
+
+.login-header
+  background: linear-gradient(top, #8b8b89, 100% #CECECE)
+  //border: 3px solid
+  border-radius: 7px 7px 0 0
+  margin: -4px -1px 0
+  padding: 1px
+  
+.login-header-inside
+  background: linear-gradient(top, #b2b2b0, 100% #f3f3f3)
+  border-radius: 6px 6px 0 0
+  height: 310px
+  padding: 0.1rem
+  position: relative
+
+.login-header-inside-image
+  position: absolute
+  left: 1rem
+  right: 0
+  top: 5px
+  height: 300px
+
+.login-header-inside-image--login
+  background: url(/img/login.png) top center no-repeat
+  background-size: contain
+  left: -2rem
+
+.login-header-inside-image--forgot
+  left: 3rem
+  background: url(/img/tsun_forgot.png) bottom center no-repeat
+  background-size: contain
+  bottom: 5px
+  top: unset
+  height: 260px
+  
+.login-header h3
+  font-size: 2rem
+  line-height: 2rem
+  font-weight: bold
+  padding: 1rem 0rem 0rem 3rem
+
+@media screen and (max-width: 40.063em)
+  .login-header-inside-image--login
+    left: 5rem
+
+  .login-header-inside-image--forgot
+    left: 7rem
+    
+  h3.login-header-inside--forgot
+    padding: 0.7rem 0rem 0rem 1.3rem
+    font-size: 1.7rem
+    width: 10rem
 
 .login-form,
 .forgot-form
   max-width: 500px
-  margin: 0 auto
+  margin: 2rem auto 3rem
 
 .login-errors
   margin: 1rem 1rem 0 1rem
@@ -37,12 +84,3 @@
 .login-meta a
   display: block
   line-height: 1.5rem
-  
-.forgot-image
-  background: url("/img/tsun.png") no-repeat top
-  max-width: 300px
-  height: 380px
-  margin: 40px auto 20px auto
-  background-repeat: no-repeat
-  background-size: contain
-  text-align: center
