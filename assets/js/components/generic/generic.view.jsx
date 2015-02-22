@@ -1,18 +1,10 @@
 'use strict';
 
 var m = require('mithril');
+var helper = require('../../helpers/view');
 
-exports.not_found = function() {
-  return <div class="generic-not_found">
-      <div class="row">
-        <div class="large-12 columns columns-centered">
-          <p class="generic-text">
-            The page or file you requested could not be found.
-          </p>
-          <div class="generic-not_found-image"></div>
-        </div>
-      </div>
-    </div>
+exports.throw_error = function(ctrl) {
+  ctrl.something(); //this will crash
 }
 
 exports.error = function(error) {
@@ -31,4 +23,53 @@ exports.error = function(error) {
         <p class="generic-error-box-stack">{m.trust(stack)}</p>
       </section>
     </main>
+}
+
+exports.not_found = function(ctrl) {
+  var message = 'Page not found.';
+  var subtitle = 'Unfortunately the page you were trying to '+
+                 'retrieve is missing, does not exist or you '+
+                 'don\'t have permission to view it.';
+  var items = [
+    {url: '/', text: 'Go to the frontpage'},
+    {url: '/releases', text: 'Latest releases on NFP'},
+    {url: '/profile', text: 'Your personal profile'}
+  ];
+  if (ctrl && ctrl.vm && ctrl.vm.message) {
+    var temp = ctrl.vm.message();
+    if (temp && temp.message) {
+      message = temp.message;
+    }
+    if (temp && temp.subtitle) {
+      subtitle = temp.subtitle;
+    }
+    if (temp && temp.items) {
+      items = temp.items;
+    }
+  }
+  return <section class="generic-not_found">
+      <div class="row">
+        <div class="medium-6 columns columns-centered">
+          <h3 class="generic-not_found-header">{m.trust(message)}</h3>
+          <p class="generic-not_found-text">{m.trust(subtitle)}</p>
+          <h5 class="generic-not_found-suggestion">Suggestions</h5>
+          <ul class="generic-not_found-list">
+          {items.map(function(item) {
+            return <li class="generic-not_found-list-item">
+                <a href={item.url} config={helper.link}>
+                  {item.text}
+                </a>
+              </li>;
+          })}
+          </ul>
+          {/*<h5 class="generic-not_found-suggestion">Search</h5>
+          <p class="generic-not_found-text">
+            Alternatively, try using the search engine.
+          </p>*/}
+        </div>
+        <div class="medium-6 columns columns-centered">
+          <div class="generic-not_found-image"></div>
+        </div>
+      </div>
+    </section>
 }

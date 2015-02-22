@@ -1,3 +1,5 @@
+@require('../common')
+
 .profile
   text-align: left
   min-height: 500px
@@ -11,13 +13,13 @@
   text-align: center
 
 .profile-message--error
-  color: #9E0C0F
+  color: error_color
 
 .profile-message--info
-  color: #2285A2
+  color: info_color
   
 .profile-message--success
-  color: #4A831C
+  color: success_color
   
 .profile-disclaimer
   font-size: 0.8rem
@@ -28,3 +30,20 @@
   padding-left: 0.5rem
   text-align: left
   display: inline-block
+  color: sub_color
+
+.profile-header
+  padding: 0
+  background: #404041
+  border-bottom: 1px solid #303031
+  color: #FFF
+  border-radius: 7px 7px 0px 0px
+  margin: -4px -1px 0
+  
+.profile-header h3
+  text-transform: capitalize
+  padding-top: 0.5rem
+  color: #FFF
+  font-size: 1.2rem
+  text-align: center
+  line-height: 1.3rem

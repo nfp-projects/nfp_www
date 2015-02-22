@@ -1,8 +1,9 @@
+@require('../common')
+
 .generic-not_found
   margin: 2rem auto 0
   text-align: left
-  border: 1px solid #CECECE
-  border-bottom: none
+  border: 0 !important
   min-height: 500px
   padding: 1.5rem
   border-radius: 7px 7px 0px 0px
@@ -15,6 +16,28 @@
   background-repeat: no-repeat
   background-size: contain
   text-align: center
+
+.generic-not_found-header
+  margin: 2rem 0 1rem
+  text-transform: capitalize
+
+.generic-not_found-text
+  margin: 0rem 0
+  text-align: left
+  font-size: 0.9rem
+
+.generic-not_found-suggestion
+  margin: 1rem 0 0.3rem
+  font-size: 1rem
+  font-weight: bold
+  text-align: left
+
+.generic-not_found-list
+  text-align: left
+
+.generic-not_found-list-item
+  font-size: 0.9rem
+  margin-left: 0.5rem
 
 .generic-error
   display: table
@@ -36,7 +59,7 @@
   margin: 0
 
 .generic-error-box-title
-  color: #9E0C0F
+  color: error_color
   padding: 0 1rem
   
 .generic-error-box-link
@@ -46,10 +69,10 @@
 
 .generic-error-box-stack
   font-size: 0.7rem
-  color: #999
+  color: sub_color
 
 .link-error
-  color: #9E0C0F !important
+  color: error_color !important
 
 .navigation-item .link-error
   color: #f26c6e !important

@@ -44,6 +44,7 @@ try
     '/profile': profile,
     '/login': login,
     '/login/:action': login,
+    '/error': generic('throw_error'),
     '/:other...': generic('not_found')
   });
 

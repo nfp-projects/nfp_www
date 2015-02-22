@@ -33,9 +33,9 @@ module.exports = function(builder) {
 
   //Wrap init so it always returns the vm
   vm._init = vm.init || function() {};
-  vm.init = function() {
+  vm.init = function(ctrl) {
     message = null;
-    vm._init();
+    vm._init(ctrl);
     return vm;
   };
 

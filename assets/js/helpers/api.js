@@ -24,11 +24,25 @@ api._unwrapError = function(data, xhr) {
   };
 };
 
+api._deserialize = function(value) {
+  if (!value) return {};
+  if (value[0] !== '{' && value[0] !== '['){
+      return {message: value};
+  }
+  try {
+    return JSON.parse(value);
+  }
+  catch (error) {
+    return {message: value};
+  }
+};
+
 api.get = function(path, options) {
   options = _.defaults(options || {}, {
     method: 'GET',
     url: apiUrl + path,
     unwrapError: api._unwrapError,
+    deserialize: api._deserialize,
     config: auth.config
   });
   return m.request(options);
@@ -40,9 +54,16 @@ api.post = function(path, data, options) {
     url: apiUrl + path,
     data: data,
     unwrapError: api._unwrapError,
+    deserialize: api._deserialize,
     config: auth.config
   });
-  return m.request(options);
+  try {
+    return m.request(options);
+  }
+  catch (error) {
+    console.log('bla');
+    console.log(error);
+  }
 };
 
 module.exports = api;

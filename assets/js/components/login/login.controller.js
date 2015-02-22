@@ -11,8 +11,8 @@ require('./login.view'); //load the view
 
 login.controller = function() {
   this.action = m.route.param('action');
-  this.vm = login.vm.init();
-
+  this.vm = login.vm.init(this);
+ 
   if (!this.action) {
     this.action = 'login';
   }

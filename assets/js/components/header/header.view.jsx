@@ -12,6 +12,7 @@ var helper = require('../../helpers/view');
 header.view = function(c) {
   var size = 'medium-2';
   var route = m.route();
+  route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
   var breadcrumbs = _.compact(route.split('/'));
   var previous = '';
   return <div class="header">

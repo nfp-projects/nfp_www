@@ -1,3 +1,5 @@
+@require('../common')
+
 .login
   text-align: left
   min-height: 500px
@@ -23,7 +25,8 @@
   top: 5px
   height: 300px
 
-.login-header-inside-image--login
+.login-header-inside-image--login,
+.login-header-inside-image--reset
   background: url(/img/login.png) top center no-repeat
   background-size: contain
   left: -2rem
@@ -35,27 +38,43 @@
   bottom: 5px
   top: unset
   height: 260px
+
+.login-message
+  margin: 0.5rem 1rem 1rem
+  text-align: center
+
+.login-message--error
+  color: error_color
+
+.login-message--info
+  color: info_color
+  
+.login-message--success
+  color: success_color
   
 .login-header h3
-  font-size: 2rem
+  font-size: 1.5rem
+  line-height: 1.5rem
   line-height: 2rem
   font-weight: bold
   padding: 1rem 0rem 0rem 3rem
 
 @media screen and (max-width: 40.063em)
-  .login-header-inside-image--login
+  .login-header-inside-image--login,
+  .login-header-inside-image--reset
     left: 5rem
 
   .login-header-inside-image--forgot
     left: 7rem
     
-  h3.login-header-inside--forgot
-    padding: 0.7rem 0rem 0rem 1.3rem
-    font-size: 1.7rem
+  h3.login-header-inside--forgot,
+  h3.login-header-inside--reset
+    padding: 1rem 0rem 0rem 2rem
     width: 10rem
 
 .login-form,
-.forgot-form
+.forgot-form,
+.signup-form
   max-width: 500px
   margin: 2rem auto 3rem
 
@@ -74,13 +93,47 @@
   font-size: 0.9rem
   text-align: right
 
-.login-meta
+.login-meta,
+.signup-meta
   border-top: 1px solid #CECECE
   font-size: 0.7rem
   margin-top: 1.5rem
   padding-top: 0.7rem
   text-align: center
 
-.login-meta a
+.login-meta a,
+.signup-meta a
   display: block
   line-height: 1.5rem
+  
+.login-disclaimer
+  font-size: 0.8rem
+  text-align: center
+
+.signup
+  padding: 0
+
+.signup-header
+  padding: 0
+  background: #404041
+  border-bottom: 1px solid #303031
+  color: #FFF
+  border-radius: 7px 7px 0px 0px
+  margin: -4px -1px 0
+  
+.signup-header h3
+  padding-top: 0.5rem
+  color: #FFF
+  font-size: 1.2rem
+  text-align: center
+  line-height: 1.3rem
+
+.signup-alt
+  padding-right: 1.0rem !important
+  text-align: right
+
+.signup-span
+  font-size: 0.7rem
+  color: sub_color
+  padding-left: 0.3rem
+  display: inline-block

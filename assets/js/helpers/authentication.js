@@ -59,7 +59,8 @@ auth.logout = function() {
 };
 
 auth.config = function(xhr) {
-  xhr.setRequestHeader("Content-Type", "application/json");
+  //xhr.setRequestHeader("Content-Type", "application/json");
+  //Above line will fail in Chrome
   auth.verifyExp();
   if (auth.loggedIn) {
     xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('access_token'));

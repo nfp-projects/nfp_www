@@ -7,7 +7,10 @@ var helper = require('../../helpers/view');
 
 profile.view = function(ctrl) {
   
-  return <div class="profile">
+  return <section class="profile">
+          <header class="profile-header">
+            <h3>{ctrl.vm.user.name || ctrl.vm.user.username} - Profile</h3>
+          </header>
           <form class="profile-form" type="post" onchange={ctrl.vm.formUpdate}>
             {modules.message(ctrl, 'profile')}
             <div class="row">
@@ -22,23 +25,23 @@ profile.view = function(ctrl) {
                 </label>
               </div>
               <div class="large-12 columns">
-                <label>Name
-                  <input type="text" name="name" value={ctrl.vm.user.name || '...'} />
+                <label>Name<span class="profile-meta">(optional)</span>
+                  <input type="text" name="name" value={ctrl.vm.user.name || ''} />
                 </label>
               </div>
               <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Current Password<span class="profile-meta">(to change password)</span>
-                  <input type="password" name="current_password" />
+                  <input type="password" name="current_password" value="" />
                 </label>
               </div>
               <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Password
-                  <input type="password" name="password" />
+                  <input type="password" name="password" value="" />
                 </label>
               </div>
               <div class="large-12 columns" style={{display: ctrl.vm.user.change_password ? 'block' : 'none'}}>
                 <label>Confirm Password
-                  <input type="password" name="confirm_password" />
+                  <input type="password" name="confirm_password" value="" />
                 </label>
               </div>
               <div class="small-4 columns" style={{display: ctrl.vm.working ? 'none' : 'block'}}>
@@ -52,7 +55,7 @@ profile.view = function(ctrl) {
             </div>
             <div class="row" style={{display: ctrl.vm.working ? 'block' : 'none'}}>
               <div class="large-12 columns">
-                <div class="spinner">
+                <div class="spinner spinner--large">
                   <div class="bounce1"></div>
                   <div class="bounce2"></div>
                   <div class="bounce3"></div>
@@ -60,5 +63,5 @@ profile.view = function(ctrl) {
               </div>
             </div>
           </form>
-        </div>;
+        </section>;
 };

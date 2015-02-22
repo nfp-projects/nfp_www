@@ -10,7 +10,9 @@ exports.message = function(ctrl, name) {
 
 exports.header_link = function(ctrl, path, text, classes, hide) {
   if (hide) return;
-  if (m.route().indexOf(path) === 0 && path !== '/' || path === m.route()) {
+  var route = m.route();
+  route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
+  if (route.indexOf(path) === 0 && path !== '/' || path === route) {
     classes += ' navigation-item--selected';
   }
   return <div key={path} class={classes}>
