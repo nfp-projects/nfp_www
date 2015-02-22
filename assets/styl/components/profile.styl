@@ -33,17 +33,34 @@
   color: sub_color
 
 .profile-header
-  padding: 0
-  background: #404041
-  border-bottom: 1px solid #303031
-  color: #FFF
-  border-radius: 7px 7px 0px 0px
+  background: linear-gradient(top, #8b8b89, 100% #CECECE)
+  //border: 3px solid
+  border-radius: 7px 7px 0 0
   margin: -4px -1px 0
+  padding: 1px
+  
+.profile-header-inside
+  background: linear-gradient(top, #b2b2b0, 100% #f3f3f3)
+  border-radius: 6px 6px 0 0
+  height: 310px
+  padding: 0.1rem
+  position: relative
   
 .profile-header h3
-  text-transform: capitalize
-  padding-top: 0.5rem
-  color: #FFF
-  font-size: 1.2rem
-  text-align: center
-  line-height: 1.3rem
+  font-size: 1.5rem
+  line-height: 1.5rem
+  line-height: 2rem
+  font-weight: bold
+  padding: 1rem 0rem 0rem 3rem
+
+.profile-header-inside-image
+  position: absolute
+  left: 1rem
+  right: 0rem
+  height: 300px
+
+.profile-header-inside-image--profile
+  background: url(/img/sitting.png) bottom right no-repeat
+  background-size: contain
+  bottom: 0px
+  height: 270px

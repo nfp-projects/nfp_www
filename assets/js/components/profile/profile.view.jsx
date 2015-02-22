@@ -9,7 +9,10 @@ profile.view = function(ctrl) {
   
   return <section class="profile">
           <header class="profile-header">
-            <h3>{ctrl.vm.user.name || ctrl.vm.user.username} - Profile</h3>
+            <div class="profile-header-inside">
+              <h3 class="profile-header-inside--profile">Profile</h3>
+              <div class="profile-header-inside-image profile-header-inside-image--profile"></div>
+            </div>
           </header>
           <form class="profile-form" type="post" onchange={ctrl.vm.formUpdate}>
             {modules.message(ctrl, 'profile')}
