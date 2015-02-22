@@ -22,11 +22,13 @@ header.view = function(c) {
               {c.menu().map(function(item) {
                 return modules.header_link(c, '/', item.title, size + " navigation-item columns");
               })}
-              {modules.header_link(c, '/login', 'Login', size + " navigation-item columns end", auth.loggedIn)}
-              {modules.header_link(c, '/profile', 'Profile', size + " navigation-item columns", !auth.loggedIn)}
-              {modules.header_link(c, '/login/logout', 'Logout', size + " navigation-item columns end", !auth.loggedIn)}
             </div>
           </nav>
+          <aside class="header-aside">
+            {modules.header_link(c, '/login/logout', 'Logout', 'header-aside-item', !auth.loggedIn)}
+            {modules.header_link(c, '/profile', 'Profile', 'header-aside-item', !auth.loggedIn)}
+            {modules.header_link(c, '/login', 'Login', 'header-aside-item', auth.loggedIn)}
+          </aside>
           <ul class="breadcrumbs header-breadcrumbs">
             {breadcrumbs.map(function(item) {
               var prefix = null;

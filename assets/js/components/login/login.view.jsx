@@ -21,7 +21,7 @@ login.view.login = function(ctrl) {
   return <section class="login">
           <header class="login-header">
             <div class="login-header-inside">
-              <h3>Login</h3>
+              <h3 class="login-header-inside--login">Login</h3>
               <div class="login-header-inside-image login-header-inside-image--login"></div>
             </div>
           </header>

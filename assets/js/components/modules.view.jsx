@@ -12,7 +12,7 @@ exports.header_link = function(ctrl, path, text, classes, hide) {
   if (hide) return;
   var route = m.route();
   route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
-  if (route.indexOf(path) === 0 && path !== '/' || path === route) {
+  if ((route.indexOf(path) === 0 && path !== '/' || path === route) && classes.indexOf('navigation-item') > 0) {
     classes += ' navigation-item--selected';
   }
   return <div key={path} class={classes}>

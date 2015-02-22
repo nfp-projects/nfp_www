@@ -21,14 +21,20 @@
 .login-header-inside-image
   position: absolute
   left: 1rem
-  right: 0
-  top: 5px
+  right: 0rem
   height: 300px
 
-.login-header-inside-image--login,
-.login-header-inside-image--reset
-  background: url(/img/login.png) top center no-repeat
+.login-header-inside-image--login
+  background: url(/img/login_2.png) bottom center no-repeat
   background-size: contain
+  bottom: 0px
+  right: 1rem
+  height: 270px
+
+.login-header-inside-image--reset
+  background: url(/img/reset.png) top center no-repeat
+  background-size: contain
+  top: 5px
   left: -2rem
 
 .login-header-inside-image--forgot
@@ -36,7 +42,6 @@
   background: url(/img/tsun_forgot.png) bottom center no-repeat
   background-size: contain
   bottom: 5px
-  top: unset
   height: 260px
 
 .login-message
@@ -60,9 +65,15 @@
   padding: 1rem 0rem 0rem 3rem
 
 @media screen and (max-width: 40.063em)
-  .login-header-inside-image--login,
+  h3.login-header-inside--login
+    padding-left: 1rem
+    
+  .login-header-inside-image--login
+    left: 1rem
+    right: 1rem
+
   .login-header-inside-image--reset
-    left: 5rem
+    left: 0rem
 
   .login-header-inside-image--forgot
     left: 7rem
