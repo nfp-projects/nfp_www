@@ -44,7 +44,7 @@
     "jwt-decode": "^1.0.0",
     "live-reload": "^0.2.0",
     "lodash": "^3.0.0",
-    "mithril": "^0.1.29",
+    "mithril": "lhorie/mithril.js",
     "msx": "^0.3.0",
     "nconf": "^0.7.1",
     "nib": "^1.1.0",
