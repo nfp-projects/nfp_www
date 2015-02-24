@@ -7,6 +7,15 @@ var forge = require('../../helpers/forge');
 var header = {};
 
 header.vm = forge(function(vm) {
+  vm.isRouteMatch = function(url) {
+    var route = m.route();
+    route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
+    if (route.indexOf(url) === 0 && url !== '/' || url === route) {
+      return true;
+    }
+    return false;
+  };
+
   vm.getCategories = function() {
     //First we check if it's already cached.
     var menu = localStorage.getItem('header_menu');
@@ -20,7 +29,7 @@ header.vm = forge(function(vm) {
 
     //Then we do an actual request to get the latest data.
     //If we do have it cached, we run it in the background.
-    return api.get('/nav', {
+    return api.get('/nav?fields=title,slug,children(title,slug)', {
       background: !!menu,
       initialValue: menu
     }).then(function(data) {

@@ -2,10 +2,22 @@
 
 var m = require('mithril');
 
+var currentActive = '';
+var isTouch = false;
+
 exports.link = function(element) {
   element.href = this.attrs.href;
   element.removeEventListener("click", routeUnobtrusive);
   element.addEventListener("click", routeUnobtrusive);
+};
+
+exports.smartLink = function(item, element) {
+  element.href = this.attrs.href;
+  element._item = item;
+  element.removeEventListener('touchend', checkTouch);
+  element.addEventListener('touchend', checkTouch);
+  element.removeEventListener("click", routeSmart);
+  element.addEventListener("click", routeSmart);
 };
 
 function routeUnobtrusive(e) {
@@ -20,13 +32,67 @@ function routeUnobtrusive(e) {
     m.route(currentTarget.pathname);
   }
   catch (error) {
-    console.error(error);
-    var message = 'Error: ' + error.message;
-    if (currentTarget.parentElement &&
-        currentTarget.parentElement.className &&
-        currentTarget.parentElement.className.indexOf('navigation-item') > 0) {
-      message = 'Error';
-    }
-    m.render(currentTarget, m('span', {class: 'link-error'}, message));
+    displayError(currentTarget, error);
   }
+}
+
+function checkTouch() {
+  /*jshint validthis: true */
+  isTouch = true;
+}
+
+function routeSmart(e) {
+  /*jshint validthis: true */
+  e = e || event;
+  if (e.ctrlKey || e.metaKey || e.which === 2) return;
+  if (e.preventDefault) e.preventDefault();
+  else e.returnValue = false;
+  var currentTarget = e.currentTarget || this;
+
+  if (!isTouch) {
+    return route(currentTarget);
+  }
+
+  var hasChildren = currentTarget._item.children && currentTarget._item.children.length;
+
+  if (document.body.clientWidth > 640) {
+    if (hasChildren && currentActive !== currentTarget.pathname) {
+      currentActive = currentTarget.pathname;
+      return;
+    }
+    currentActive = currentTarget.pathname;
+    
+    return route(currentTarget);
+  }
+
+  if (currentTarget._open || (!hasChildren && currentTarget.pathname !== '/')) {
+    return route(currentTarget);
+  }
+  currentTarget._open = true;
+
+  if (currentTarget.pathname === '/') {
+    currentTarget.parentElement.parentElement.parentElement.className += ' navigation--expand';
+  } else {
+    currentTarget.parentElement.className += ' navigation-item--expand';
+  }
+}
+
+function route(element) {
+  try {
+    m.route(element.pathname);
+  }
+  catch (error) {
+    displayError(element, error);
+  }
+}
+
+function displayError(element, error) {
+  console.error(error);
+  var message = 'Error: ' + error.message;
+  if (element.parentElement &&
+      element.parentElement.className &&
+      element.parentElement.className.indexOf('navigation-item') > 0) {
+    message = 'Error';
+  }
+  m.render(element, m('span', {class: 'link-error'}, message));
 }

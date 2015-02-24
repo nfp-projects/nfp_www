@@ -18,16 +18,23 @@ header.view = function(c) {
   return <div class="header">
           <nav class="navigation">
             <div class="row">
-              {modules.header_link(c, '/', 'NFP', size + " navigation-item navigation-item--first columns")}
-              {c.menu().map(function(item) {
-                return modules.header_link(c, '/', item.title, size + " navigation-item columns");
+              {modules.header_link(c, {slug: '', title: 'NFP'}, size + ' navigation-item--first')}
+              {c.menu().map(function(item, index) {
+                var isEnd = index === c.menu().length - 1;
+                return modules.header_link(c, item, size + (isEnd && ' end' || ''));
               })}
             </div>
           </nav>
           <aside class="header-aside">
-            {modules.header_link(c, '/login/logout', 'Logout', 'header-aside-item', !auth.loggedIn)}
-            {modules.header_link(c, '/profile', 'Profile', 'header-aside-item', !auth.loggedIn)}
-            {modules.header_link(c, '/login', 'Login', 'header-aside-item', auth.loggedIn)}
+            <div key="/login/logout" class="header-aside-item" style={{display: auth.loggedIn ? 'block' : 'none'}}>
+              <a href="/login/logout" config={helper.link}>Logout</a>
+            </div>
+            <div key="/profile" class="header-aside-item" style={{display: auth.loggedIn ? 'block' : 'none'}}>
+              <a href="/profile" config={helper.link}>Profile</a>
+            </div>
+            <div key="/login" class="header-aside-item" style={{display: auth.loggedIn ? 'none' : 'block'}}>
+              <a href="/login" config={helper.link}>Login</a>
+            </div>
           </aside>
           <ul class="breadcrumbs header-breadcrumbs">
             {breadcrumbs.map(function(item) {

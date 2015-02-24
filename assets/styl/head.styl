@@ -1,3 +1,5 @@
+@require "./common"
+
 menu-height = 50px
 
 #header
@@ -29,10 +31,11 @@ menu-height = 50px
   border-radius: 7px 7px 0px 0px
 
 .navigation-item
-  height: menu-height
   border-right: 1px solid #000000
   border-bottom: 1px solid #000000
   margin-bottom: -1px
+  padding: 0 !important
+  position: relative
 
 .navigation-item--first
   border-radius: 7px 0 0 0
@@ -50,6 +53,66 @@ menu-height = 50px
   font-size: 14px
   line-height: menu-height
   display: block
+
+.navigation-item-submenu
+  background: #545454
+  border-bottom: 1px solid #000000
+  list-style: none
+  padding: 0
+  margin: 0 -1px
+  z-index: 9
+  position: absolute
+  top: menu-height
+  left: 0
+  right: 0
+
+.navigation-item-submenu li
+  border-top: 1px solid #333
+  border-left: 1px solid #000000
+  border-right: 1px solid #000000
+  display: none
+  
+.navigation-item:hover .navigation-item-submenu li
+  display: block
+
+.navigation-item a:hover
+  background: info_color
+  
+@media screen and (max-width: 40.063em)
+  .navigation-item
+    height: auto
+    border-right: none
+    display: none
+    
+  .navigation-item.navigation-item--selected
+    display: block
+    background: transparent
+    
+  .navigation--expand .navigation-item
+    display: block
+    
+  .navigation-item--first
+    border-radius: 7px 7px 0 0
+    display: block
+    
+  .navigation-item--first > a:hover
+    border-radius: 7px 7px 0 0
+  
+  .navigation-item-submenu
+    position: static
+    border-bottom: none
+    margin: 0
+    
+  .navigation-item-submenu li
+    border-left: none
+    border-right: none
+    
+  .navigation-item:hover .navigation-item-submenu li
+    display: none
+  
+  .navigation-item--expand .navigation-item-submenu li,
+  .navigation-item.navigation-item--expand:hover .navigation-item-submenu li
+    display: block
 
 .header-aside
   float: right;

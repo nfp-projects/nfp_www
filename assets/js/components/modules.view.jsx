@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var m = require('mithril');
 var helper = require('../helpers/view');
 
@@ -8,14 +9,19 @@ exports.message = function(ctrl, name) {
   return <p key="message" class={name + '-message ' + name + '-message--' + (message && message.type || 'none')}>{message && message.message || ''}</p>;
 }
 
-exports.header_link = function(ctrl, path, text, classes, hide) {
-  if (hide) return;
-  var route = m.route();
-  route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
-  if ((route.indexOf(path) === 0 && path !== '/' || path === route) && classes.indexOf('navigation-item') > 0) {
-    classes += ' navigation-item--selected';
-  }
-  return <div key={path} class={classes}>
-          <a href={path} config={helper.link}>{text}</a>
+exports.header_link = function(ctrl, item, classes) {
+  var path = '/' + item.slug;
+  classes += ctrl.vm.isRouteMatch(path) && ' navigation-item--selected' || '';
+  item.children = item.children || [];
+  return <div class={classes + ' navigation-item columns'}>
+          <a href={path} config={_.partial(helper.smartLink, item)}>{item.title}</a>
+          <ul class='navigation-item-submenu'>
+            {item.children.map(function(sub) {
+              var curr = path + '/' + sub.slug;
+              return <li class={'navigation-item-submenu-item ' + ctrl.vm.isRouteMatch(curr) && 'navigation-item-submenu-item--selected' || ''}>
+                      <a href={curr} config={_.partial(helper.smartLink, sub)}>{sub.title}</a>
+                    </li>
+            })}
+          </ul>
         </div>
 }
