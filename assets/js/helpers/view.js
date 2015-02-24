@@ -49,7 +49,7 @@ function routeSmart(e) {
   else e.returnValue = false;
   var currentTarget = e.currentTarget || this;
 
-  if (!isTouch) {
+  if (!isTouch && document.body.clientWidth > 640) {
     return route(currentTarget);
   }
 
