@@ -4,6 +4,7 @@ var m = require('mithril');
 
 var currentActive = '';
 var isTouch = false;
+var isDragging = false;
 
 exports.link = function(element) {
   element.href = this.attrs.href;
@@ -14,6 +15,8 @@ exports.link = function(element) {
 exports.smartLink = function(item, element) {
   element.href = this.attrs.href;
   element._item = item;
+  element.removeEventListener('touchmove', checkTouchMove);
+  element.addEventListener('touchmove', checkTouchMove);
   element.removeEventListener('touchend', checkTouch);
   element.addEventListener('touchend', checkTouch);
   element.removeEventListener("click", routeSmart);
@@ -36,20 +39,36 @@ function routeUnobtrusive(e) {
   }
 }
 
-function checkTouch() {
+function checkTouch(e) {
   /*jshint validthis: true */
   isTouch = true;
+  if (isDragging) {
+    isDragging = false;
+    return;
+  }
+  routeSmart(e, true);
 }
 
-function routeSmart(e) {
+function checkTouchMove() {
+  /*jshint validthis: true */
+  isDragging = true;
+}
+
+function routeSmart(e, b) {
   /*jshint validthis: true */
   e = e || event;
   if (e.ctrlKey || e.metaKey || e.which === 2) return;
-  if (e.preventDefault) e.preventDefault();
-  else e.returnValue = false;
+
+  if (!b) {
+    prevent(e);
+    if (isTouch) {
+      return;
+    }
+  }
   var currentTarget = e.currentTarget || this;
 
   if (!isTouch && document.body.clientWidth > 640) {
+    prevent(e);
     return route(currentTarget);
   }
 
@@ -61,11 +80,13 @@ function routeSmart(e) {
       return;
     }
     currentActive = currentTarget.pathname;
-    
+
+    prevent(e);
     return route(currentTarget);
   }
 
   if (currentTarget._open || (!hasChildren && currentTarget.pathname !== '/')) {
+    prevent(e);
     return route(currentTarget);
   }
   currentTarget._open = true;
@@ -75,6 +96,11 @@ function routeSmart(e) {
   } else {
     currentTarget.parentElement.className += ' navigation-item--expand';
   }
+}
+
+function prevent(e) {
+  if (e.preventDefault) e.preventDefault();
+  else e.returnValue = false;
 }
 
 function route(element) {
