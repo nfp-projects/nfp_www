@@ -15,14 +15,30 @@ exports.error = function(error) {
     stack = stack.replace(/</g, '&lt;');
     stack = stack.replace(/\n/g,'<br />');
   }
-  return <main class="generic-error">
-      <section class="generic-error-box">
+  return <main class="generic-critical_error">
+      <section class="generic-critical_error-box">
+        <div class="generic-critical_error-box-img"></div>
+        <h4 class="generic-critical_error-box-title">Unhandled Error Occured: {error.message}</h4>
+        <a class="generic-critical_error-box-link" href="/">Click here to go back to Home</a>
+        <p class="generic-critical_error-box-stack">{m.trust(stack)}</p>
+      </section>
+    </main>
+}
+
+exports.error_small = function(error) {
+  console.error(error);
+  var stack = '';
+  if (error.stack) {
+    stack = error.stack.replace(/>/g, '&gt;');
+    stack = stack.replace(/</g, '&lt;');
+    stack = stack.replace(/\n/g,'<br />');
+  }
+  return <section class="generic-error-box">
         <div class="generic-error-box-img"></div>
         <h4 class="generic-error-box-title">Unhandled Error Occured: {error.message}</h4>
         <a class="generic-error-box-link" href="/">Click here to go back to Home</a>
         <p class="generic-error-box-stack">{m.trust(stack)}</p>
       </section>
-    </main>
 }
 
 exports.not_found = function(ctrl) {

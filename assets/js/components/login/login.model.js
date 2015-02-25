@@ -5,32 +5,31 @@ var _ = require('lodash');
 var jwt_decode = require('jwt-decode');
 var auth = require('../../helpers/authentication');
 var api = require('../../helpers/api');
-var forge = require('../../helpers/forge');
+var Module = require('../../helpers/module');
 
-var login = {};
+var login = new Module();
 
-login.vm = forge(function(vm) {
-
-  vm.init = function(ctrl) {
-    vm.username = m.prop('');
-    vm.password = m.prop('');
-    vm.email = m.prop('');
-    vm.name = m.prop('');
-    vm.errors = m.prop('');
-    vm.token = null;
-    vm.token_data = null;
+login.vm = {
+  init: function(ctrl) {
+    login.vm.username = m.prop('');
+    login.vm.password = m.prop('');
+    login.vm.email = m.prop('');
+    login.vm.name = m.prop('');
+    login.vm.errors = m.prop('');
+    login.vm.token = null;
+    login.vm.token_data = null;
 
     if (m.route().indexOf('?token=') > 0) {
-      vm.token = m.route();
-      vm.token = vm.token.slice(vm.token.indexOf('?token=') + 7);
+      login.vm.token = m.route();
+      login.vm.token = login.vm.token.slice(login.vm.token.indexOf('?token=') + 7);
 
       api.post('/profile/verify', {
-        token: vm.token
+        token: login.vm.token
       }).then(function() {
-        vm.token_data = jwt_decode(vm.token);
+        login.vm.token_data = jwt_decode(login.vm.token);
       }, function(err) {
         ctrl.action = 'error';
-        vm.message({
+        login.vm.message({
           type: 'error',
           message: err.message,
           subtitle: 'The token failed verification test. This could be '+
@@ -43,130 +42,129 @@ login.vm = forge(function(vm) {
         });
       });
     }
+  },
 
-    vm.oauthLogin = function(provider) {
-      var token = auth.jso.getToken(provider);
-      if (!token) {
-        vm.working = false;
-        return m.redraw();
-      }
-      vm.authenticate({google: token.access_token});
-    };
+  oauthLogin: function(provider) {
+    var token = auth.jso.getToken(provider);
+    if (!token) {
+      login.vm.working = false;
+      return m.redraw();
+    }
+    login.vm.authenticate({google: token.access_token});
+  },
 
-    vm.login = function(method, e) {
-      e.preventDefault();
-      vm.working = true;
+  login: function(method, e) {
+    e.preventDefault();
+    login.vm.working = true;
 
-      if (method !== 'local') {
-        m.redraw(); //Get dat fancy loading bar
+    if (method !== 'local') {
+      m.redraw(); //Get dat fancy loading bar
 
-        //Check to see if we maybe already have the token.
-        var token = auth.jso.getToken(method);
-        if (token) {
-          return vm.oauthLogin(method);
-        }
-
-        return auth.jso.authRequest(
-                method,
-                auth.scopes[method],
-                _.partial(vm.oauthLogin, method));
+      //Check to see if we maybe already have the token.
+      var token = auth.jso.getToken(method);
+      if (token) {
+        return login.vm.oauthLogin(method);
       }
 
-      //Local login
-      vm.authenticate({
-        username: vm.username(),
-        password: vm.password()
-      });
-    };
+      return auth.jso.authRequest(
+              method,
+              auth.scopes[method],
+              _.partial(login.vm.oauthLogin, method));
+    }
 
-    vm.forgot = function(e) {
-      e.preventDefault();
+    //Local login
+    login.vm.authenticate({
+      username: login.vm.username(),
+      password: login.vm.password()
+    });
+  },
 
-      if (!vm.email() || vm.email().indexOf('@') <= 0) {
-        return vm.error('Please type in a valid email address');
-      }
-      vm.working = true;
-      m.redraw();
+  forgot: function(e) {
+    e.preventDefault();
 
-      api.post('/profile/forgot', {email: vm.email()}).then(function() {
-        vm.email('');
-        vm.success('Password reset email was sent, please check your inbox and follow the steps inside.');
-      }, function(err) {
-        vm.error('Unable to send email: ' + err.message);
-      }).then(function() {
-        vm.working = false;
-      });
-    };
+    if (!login.vm.email() || login.vm.email().indexOf('@') <= 0) {
+      return login.vm.error('Please type in a valid email address');
+    }
+    login.vm.working = true;
+    m.redraw();
 
-    vm.finish = function(e) {
-      e.preventDefault();
+    api.post('/profile/forgot', {email: login.vm.email()}).then(function() {
+      login.vm.email('');
+      login.vm.success('Password reset email was sent, please check your inbox and follow the steps inside.');
+    }, function(err) {
+      login.vm.error('Unable to send email: ' + err.message);
+    }).then(function() {
+      login.vm.working = false;
+    });
+  },
 
-      if (!vm.password() || vm.password().length < 6) {
-        return vm.error('Please type in a of at least six characters of length');
-      }
-      vm.working = true;
-      m.redraw();
+  finish: function(e) {
+    e.preventDefault();
 
-      api.post('/profile/finish', {
-        password: vm.password(),
-        token: vm.token
-      }).then(function(res) {
-        auth.authenticated(res);
-        m.route('/profile');
-      }, function(err) {
-        vm.error('Unable to reset password: ' + err.message);
-      }).then(function() {
-        vm.password('');
-        vm.working = false;
-      });
-    };
+    if (!login.vm.password() || login.vm.password().length < 6) {
+      return login.vm.error('Please type in a of at least six characters of length');
+    }
+    login.vm.working = true;
+    m.redraw();
 
-    vm.signup = function(e) {
-      e.preventDefault();
+    api.post('/profile/finish', {
+      password: login.vm.password(),
+      token: login.vm.token
+    }).then(function(res) {
+      auth.authenticated(res);
+      m.route('/profile');
+    }, function(err) {
+      login.vm.error('Unable to reset password: ' + err.message);
+    }).then(function() {
+      login.vm.password('');
+      login.vm.working = false;
+    });
+  },
 
-      if (!vm.username() || vm.username().length < 2) {
-        return vm.error('Username must be atleast 2 characters length');
-      }
+  signup: function(e) {
+    e.preventDefault();
 
-      if (!vm.email() || vm.email().indexOf('@') <= 0) {
-        return vm.error('Email must be a valid address');
-      }
+    if (!login.vm.username() || login.vm.username().length < 2) {
+      return login.vm.error('Username must be atleast 2 characters length');
+    }
 
-      vm.working = true;
-      m.redraw();
+    if (!login.vm.email() || login.vm.email().indexOf('@') <= 0) {
+      return login.vm.error('Email must be a valid address');
+    }
 
-      api.post('/profile/signup', {
-        username: vm.username(),
-        email: vm.email(),
-        name: vm.name()
-      }).then(function() {
-        vm.username('');
-        vm.email('');
-        vm.name('');
-        vm.success('Confirmation email was sent to the address.');
-      }, function(err) {
-        vm.error('Unable to signup: ' + err.message);
-      }).then(function() {
-        vm.working = false;
-      });
-    };
+    login.vm.working = true;
+    m.redraw();
 
-    vm.authenticate = function(opt) {
-      api.post('/authenticate', opt).then(function(res) {
-        auth.authenticated(res);
-        m.route('/');
-      }, function(error) {
-        vm.error('Unable to login: ' + error.message);
-      }).then(function() {
-        vm.working = false;
-      });
-    };
+    api.post('/profile/signup', {
+      username: login.vm.username(),
+      email: login.vm.email(),
+      name: login.vm.name()
+    }).then(function() {
+      login.vm.username('');
+      login.vm.email('');
+      login.vm.name('');
+      login.vm.success('Confirmation email was sent to the address.');
+    }, function(err) {
+      login.vm.error('Unable to signup: ' + err.message);
+    }).then(function() {
+      login.vm.working = false;
+    });
+  },
 
-    vm.logout = function() {
-      auth.logout();
-    };
-  };
+  authenticate: function(opt) {
+    api.post('/authenticate', opt).then(function(res) {
+      auth.authenticated(res);
+      m.route('/');
+    }, function(error) {
+      login.vm.error('Unable to login: ' + error.message);
+    }).then(function() {
+      login.vm.working = false;
+    });
+  },
 
-});
+  logout: function() {
+    auth.logout();
+  }
+};
 
 module.exports = login;

@@ -17,9 +17,9 @@ window.components = {};
 
 //Helper modules
 require('es6-promise').polyfill();
-require('fastclick')(document.body);
 
 var m = require('mithril');
+var generic = require('./components/generic/generic.controller');
 
 try
 {
@@ -37,6 +37,10 @@ try
   var profile = require('./components/profile/profile.controller');
   var login = require('./components/login/login.controller');
   var generic = require('./components/generic/generic.controller');
+
+  var content = document.getElementById('content');
+
+  if (!content) return;
 
   m.route(document.getElementById('content'), '/', {
     '/': home,

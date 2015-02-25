@@ -9,7 +9,7 @@ var modules = require('../modules.view');
 var auth = require('../../helpers/authentication');
 var helper = require('../../helpers/view');
 
-header.view = function(c) {
+header._view = function(c) {
   var size = 'medium-2';
   var route = m.route();
   route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);

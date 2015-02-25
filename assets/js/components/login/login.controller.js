@@ -9,7 +9,7 @@ var auth = require('../../helpers/authentication');
 require('./login.view'); //load the view
 
 
-login.controller = function() {
+login._controller = function() {
   this.action = m.route.param('action');
   this.vm = login.vm.init(this);
  

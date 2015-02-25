@@ -2,21 +2,21 @@
 
 var m = require('mithril');
 var api = require('../../helpers/api');
-var forge = require('../../helpers/forge');
+var Module = require('../../helpers/module');
 
-var header = {};
+var header = new Module();
 
-header.vm = forge(function(vm) {
-  vm.isRouteMatch = function(url) {
+header.vm = {
+  isRouteMatch: function(url) {
     var route = m.route();
     route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
     if (route.indexOf(url) === 0 && url !== '/' || url === route) {
       return true;
     }
     return false;
-  };
+  },
 
-  vm.getCategories = function() {
+  getCategories: function() {
     //First we check if it's already cached.
     var menu = localStorage.getItem('header_menu');
 
@@ -45,7 +45,7 @@ header.vm = forge(function(vm) {
       }
       return data;
     });
-  };
-});
+  }
+};
 
 module.exports = header;

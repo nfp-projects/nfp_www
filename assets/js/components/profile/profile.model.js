@@ -1,43 +1,43 @@
 'use strict';
 
-var forge = require('../../helpers/forge');
+var Module = require('../../helpers/module');
 var api = require('../../helpers/api');
 var m = require('mithril');
 
-var profile = {};
+var profile = new Module();
 
-profile.vm = forge(function(vm) {
-  vm.user = {};
+profile.vm = {
+  user: {},
 
-  vm.formUpdate = function(e) {
+  formUpdate: function(e) {
     e.preventDefault();
     m.redraw.strategy('none');
-    vm.user[e.target.name] = e.target.value;
-  };
+    profile.vm.user[e.target.name] = e.target.value;
+  },
 
-  vm.init = function() {
+  init: function() {
     api.get('/profile').then(function(data) {
       console.log(data);
-      vm.user = data;
+      profile.vm.user = data;
     }, function(error) {
-      vm.error('Error while retrieving profile: ' + error.message);
+      profile.vm.error('Error while retrieving profile: ' + error.message);
     });
-  };
+  },
 
-  vm.submit = function(e) {
+  submit: function(e) {
     e.preventDefault();
-    vm.working = true;
+    profile.vm.working = true;
     m.redraw();
-    api.post('/profile', vm.user).then(function(data) {
-      vm.success('Successfully updated profile');
-      vm.user = data;
+    api.post('/profile', profile.vm.user).then(function(data) {
+      profile.vm.success('Successfully updated profile');
+      profile.vm.user = data;
     }, function(error) {
-      vm.error('Error while updating profile: ' + error.message);
+      profile.vm.error('Error while updating profile: ' + error.message);
     }).then(function() {
-      vm.working = false;
+      profile.vm.working = false;
     });
-  };
-});
+  }
+};
 
 window.components.profile = profile;
 

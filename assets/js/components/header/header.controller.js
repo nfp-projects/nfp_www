@@ -7,7 +7,7 @@ var m = require('mithril');
 var header = require('./header.model');
 require('./header.view'); //load the view
 
-header.controller = function() {
+header._controller = function() {
   this.vm = header.vm.init();
   this.menu = this.vm.getCategories();
   //intentionally empty

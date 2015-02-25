@@ -7,7 +7,7 @@ var login = require('./login.model');
 var views = require('../generic/generic.view');
 var helper = require('../../helpers/view');
 
-login.view = function(ctrl) {
+login._view = function(ctrl) {
   return (login.view[ctrl.action] || views.not_found)(ctrl);
 };
 

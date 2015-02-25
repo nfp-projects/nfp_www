@@ -5,7 +5,7 @@ var modules = require('../modules.view');
 var profile = require('./profile.model');
 var helper = require('../../helpers/view');
 
-profile.view = function(ctrl) {
+profile._view = function(ctrl) {
   
   return <section class="profile">
           <header class="profile-header">

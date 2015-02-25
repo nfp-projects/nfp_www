@@ -114,11 +114,11 @@ function route(element) {
 
 function displayError(element, error) {
   console.error(error);
-  var message = 'Error: ' + error.message;
+  var message = '[Cannot open link: ' + error.message + ']';
   if (element.parentElement &&
       element.parentElement.className &&
       element.parentElement.className.indexOf('navigation-item') > 0) {
-    message = 'Error';
+    message = '[Error]';
   }
   m.render(element, m('span', {class: 'link-error'}, message));
 }
