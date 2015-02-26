@@ -17,6 +17,10 @@ login.view.oauth2 = function(ctrl) {
         </section>;
 };
 
+login.view.error = function(ctrl) {
+  return <section></section>;
+}
+
 login.view.login = function(ctrl) {
   return <section class="login">
           <header class="login-header">

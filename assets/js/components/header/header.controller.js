@@ -10,6 +10,7 @@ require('./header.view'); //load the view
 header._controller = function() {
   this.vm = header.vm.init();
   this.menu = this.vm.getCategories();
+  this.breadcrumbs = m.prop(this.vm.getBreadcrumbs());
   //intentionally empty
 };
 

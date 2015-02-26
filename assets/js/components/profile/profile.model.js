@@ -7,6 +7,7 @@ var m = require('mithril');
 var profile = new Module();
 
 profile.vm = {
+  addMessage: true,
   user: {},
 
   formUpdate: function(e) {
@@ -16,7 +17,7 @@ profile.vm = {
   },
 
   init: function() {
-    api.get('/profile').then(function(data) {
+    api.get('/profile?username,name,email,password,change_password').then(function(data) {
       console.log(data);
       profile.vm.user = data;
     }, function(error) {

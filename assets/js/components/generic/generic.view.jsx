@@ -18,7 +18,7 @@ exports.error = function(error) {
   return <main class="generic-critical_error">
       <section class="generic-critical_error-box">
         <div class="generic-critical_error-box-img"></div>
-        <h4 class="generic-critical_error-box-title">Unhandled Error Occured: {error.message}</h4>
+        <h4 class="generic-critical_error-box-title">Critical Error Occured: {error.message}</h4>
         <a class="generic-critical_error-box-link" href="/">Click here to go back to Home</a>
         <p class="generic-critical_error-box-stack">{m.trust(stack)}</p>
       </section>
@@ -33,12 +33,18 @@ exports.error_small = function(error) {
     stack = stack.replace(/</g, '&lt;');
     stack = stack.replace(/\n/g,'<br />');
   }
-  return <section class="generic-error-box">
-        <div class="generic-error-box-img"></div>
-        <h4 class="generic-error-box-title">Unhandled Error Occured: {error.message}</h4>
-        <a class="generic-error-box-link" href="/">Click here to go back to Home</a>
-        <p class="generic-error-box-stack">{m.trust(stack)}</p>
-      </section>
+  return <section class="generic-error_box">
+      <div class="row">
+        <div class="medium-6 columns columns-centered">
+          <h3 class="generic-error_box-header">Unhandled Error Occured:<br />{error.message}</h3>
+          <a class="generic-critical_error-box-link" href="/">Click here to go back to Home</a>
+          <p class="generic-error_box-text">{m.trust(stack)}</p>
+        </div>
+        <div class="medium-6 columns columns-centered">
+          <div class="generic-error_box-image"></div>
+        </div>
+      </div>
+    </section>
 }
 
 exports.not_found = function(ctrl) {
@@ -51,7 +57,7 @@ exports.not_found = function(ctrl) {
     {url: '/releases', text: 'Latest releases on NFP'},
     {url: '/profile', text: 'Your personal profile'}
   ];
-  if (ctrl && ctrl.vm && ctrl.vm.message) {
+  if (ctrl && ctrl.vm && ctrl.vm.messagePeek && ctrl.vm.messagePeek()) {
     var temp = ctrl.vm.message();
     if (temp && temp.message) {
       message = temp.message;

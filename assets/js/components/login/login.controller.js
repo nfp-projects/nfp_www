@@ -32,6 +32,9 @@ login._controller = function() {
     }
     return m.route('/');
   }
+  if (this.action === 'error') {
+    throw new Error('This page is not valid');
+  }
   if (this.action === 'logout') {
     this.vm.logout();
     return m.route('/');

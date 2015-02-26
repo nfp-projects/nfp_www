@@ -10,7 +10,10 @@ var Module = require('../../helpers/module');
 var login = new Module();
 
 login.vm = {
+  addMessage: true,
+
   init: function(ctrl) {
+    //throw new Error('Something went wrong');
     login.vm.username = m.prop('');
     login.vm.password = m.prop('');
     login.vm.email = m.prop('');

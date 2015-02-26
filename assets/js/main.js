@@ -59,5 +59,7 @@ try
   m.module(document.getElementById('footer'), footer);
 }
 catch (error) {
-  m.render(document.getElementById('container'), generic('error').view(error));
+  if (error.message !== 'Please ensure the DOM element exists before rendering a template into it.') {
+    m.render(document.getElementById('container'), generic('error').view(error));
+  }
 }

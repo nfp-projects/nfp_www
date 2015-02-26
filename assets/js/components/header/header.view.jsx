@@ -11,17 +11,20 @@ var helper = require('../../helpers/view');
 
 header._view = function(c) {
   var size = 'medium-2';
-  var route = m.route();
-  route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
-  var breadcrumbs = _.compact(route.split('/'));
-  var previous = '';
   return <div class="header">
           <nav class="navigation">
             <div class="row">
-              {modules.header_link(c, {slug: '', title: 'NFP'}, size + ' navigation-item--first')}
               {c.menu().map(function(item, index) {
-                var isEnd = index === c.menu().length - 1;
-                return modules.header_link(c, item, size + (isEnd && ' end' || ''));
+                return <div class={'navigation-item columns ' + size + item.selected('navigation-item--selected') + (item.isEnd && 'end' || '')}>
+                        <a href={item.path} config={_.partial(helper.smartLink, item)}>{item.title}</a>
+                        <ul class='navigation-item-submenu'>
+                          {item.children.map(function(sub) {
+                            return <li class={'navigation-item-submenu-item' + sub.selected('navigation-item-submenu-item--selected')}>
+                                    <a href={sub.path} config={_.partial(helper.smartLink, sub)}>{sub.title}</a>
+                                  </li>
+                          })}
+                        </ul>
+                      </div>
               })}
             </div>
           </nav>
@@ -37,13 +40,11 @@ header._view = function(c) {
             </div>
           </aside>
           <ul class="breadcrumbs header-breadcrumbs">
-            {breadcrumbs.map(function(item) {
-              var prefix = null;
-              previous += '/' + item;
-              return <li class={previous === route ?'current' : ''}>
+            {c.breadcrumbs().map(function(item) {
+              return <li class={item.isEnd ?'current' : ''}>
                   <a class="header-breadcrumbs-item"
-                    href={previous}
-                    config={helper.link}>{item}</a>
+                    href={item.path}
+                    config={helper.link}>{item.title}</a>
                 </li>
             })}
           </ul>

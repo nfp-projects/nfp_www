@@ -1,9 +1,9 @@
 'use strict';
 
 var m = require('mithril');
-var auth = require('../../helpers/authentication');
+var Module = require('../../helpers/module');
 
-var footer = {};
+var footer = new Module();
 
 footer.controller = function() {
   //Intentionally empty

@@ -1,19 +1,53 @@
 'use strict';
 
+var _ = require('lodash');
 var m = require('mithril');
 var api = require('../../helpers/api');
 var Module = require('../../helpers/module');
 
 var header = new Module();
 
+function HeaderItem(data, prefix) {
+  for (var key in data) { //jshint ignore:line
+    this[key] = data[key];
+  }
+  this.path = (prefix || '') + '/' + this.slug;
+
+  if (!prefix) {
+    this.children = data.children || [];
+    this.children = this.children.map(function(item) {
+      return new HeaderItem(item, this.path);
+    }.bind(this));
+  }
+
+  this.selected = function(className) {
+    var route = header.vm.getRoute();
+    if (route.indexOf(this.path) === 0 && this.path !== '/' || this.path === route) {
+      return ' ' + className + ' ';
+    }
+    return ' ';
+  };
+}
+
 header.vm = {
-  isRouteMatch: function(url) {
+  getRoute: function() {
     var route = m.route();
     route = route.slice(0, route.indexOf('?') > 0 && route.indexOf('?') || route.length);
-    if (route.indexOf(url) === 0 && url !== '/' || url === route) {
-      return true;
-    }
-    return false;
+    return route;
+  },
+
+  getBreadcrumbs: function() {
+    var route = this.getRoute();
+    var breadcrumbs = _.compact(route.split('/'));
+    var previous = '';
+    return breadcrumbs.map(function(crumb) {
+      previous += '/' + crumb;
+      return {
+        path: previous,
+        title: crumb,
+        isEnd: previous === route
+      };
+    });
   },
 
   getCategories: function() {
@@ -22,6 +56,9 @@ header.vm = {
 
     try {
       menu = menu && JSON.parse(menu) || null;
+      menu = menu.map(function(item) {
+        return new HeaderItem(item);
+      });
     }
     catch (error) {
       menu = null;
@@ -31,8 +68,12 @@ header.vm = {
     //If we do have it cached, we run it in the background.
     return api.get('/nav?fields=title,slug,children(title,slug)', {
       background: !!menu,
-      initialValue: menu
+      initialValue: menu,
+      type: HeaderItem
     }).then(function(data) {
+      data.unshift(new HeaderItem({title: 'NFP', slug: ''}));
+      data[data.length - 1].isEnd = true;
+
       var redraw = localStorage.getItem('header_menu') !== JSON.stringify(data);
       localStorage.setItem('header_menu', JSON.stringify(data));
 
