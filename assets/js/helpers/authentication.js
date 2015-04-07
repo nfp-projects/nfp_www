@@ -17,6 +17,8 @@ jso.configure({
 
 var auth = {};
 
+window.components.auth = auth;
+
 auth.loggedIn = false;
 auth.jso = jso;
 auth.user = null;

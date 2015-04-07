@@ -14,7 +14,7 @@ api._unwrapError = function(data, xhr) {
   if (xhr.status === 401) {
     auth.logout();
     m.route('/login');
-    var login = require('../components/login/login.model');
+    var login = require('../public/components/login/login.model');
     login.vm.errors('Unauthorized error, please re-login');
   }
   return {
@@ -45,6 +45,7 @@ api.get = function(path, options) {
     deserialize: api._deserialize,
     config: auth.config
   });
+
   return m.request(options);
 };
 
@@ -57,13 +58,21 @@ api.post = function(path, data, options) {
     deserialize: api._deserialize,
     config: auth.config
   });
-  try {
-    return m.request(options);
-  }
-  catch (error) {
-    console.log('bla');
-    console.log(error);
-  }
+
+  return m.request(options);
+};
+
+api.put = function(path, data, options) {
+  options = _.defaults(options || {}, {
+    method: 'PUT',
+    url: apiUrl + path,
+    data: data,
+    unwrapError: api._unwrapError,
+    deserialize: api._deserialize,
+    config: auth.config
+  });
+  
+  return m.request(options);
 };
 
 module.exports = api;

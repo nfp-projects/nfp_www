@@ -1,22 +1,27 @@
 'use strict';
 
 var m = require('mithril');
+var layout;
+
+var mapModules = {};
+var currentLayout = null;
 
 function Module() {
   var built = false;
 
   this.controller = function() {
     try {
-      if (!built) {
+      if (!built && this.vm) {
         this.vmBuilder(this.vm);
       }
       built = true;
-      
-      this._controller.call(this);
+      if (this._controller) {
+        this._controller.call(this);
+      }
     }
     catch (error) {
       console.error(error);
-      if (this.vm.addMessage) {
+      if (this.vm && this.vm.addMessage) {
         this.vm.message({
           type: 'error',
           message: 'Unhandled error: ' + error.message,
@@ -24,16 +29,18 @@ function Module() {
         });
       } else {
         this.criticalState = true;
-        var generic = require('../components/generic/generic.controller');
-        m.render(document.getElementById('container'), generic('error').view(error));
+        var generic = require('../public/components/generic/generic.controller');
+        m.render(document.body, m('#container.container', generic('error').view(error)));
       }
     }
+    layout.loadLayout(this.layout);
   };
 
   this.controller.prototype = this;
 }
 
 Module.prototype = {
+
   vmBuilder: function(vm) {
     vm.working = false;
 
@@ -75,14 +82,21 @@ Module.prototype = {
   },
 
   view: function(ctrl) {
-    if (ctrl.criticalState) return;
-    var generic = require('../components/generic/generic.controller');
+    if (ctrl.layout) {
+      return layout.view(ctrl, this.render.bind(this));
+    }
+    return this.render(ctrl);
+  },
 
-    var peek = ctrl.vm.messagePeek && ctrl.vm.messagePeek() || null;
+  render: function(ctrl) {
+    if (ctrl.criticalState) return;
+    var generic = require('../public/components/generic/generic.controller');
+
+    var peek = ctrl.vm && ctrl.vm.messagePeek && ctrl.vm.messagePeek() || null;
 
     try {
       var view = this._view(ctrl);
-      if (peek && ctrl.vm && ctrl.vm.message && ctrl.vm.messagePeek() === peek) {
+      if (peek && ctrl.vm && ctrl.vm.message && ctrl.vm.messagePeek() === peek && peek.error) {
         return generic('error_small').view(peek.error);
       }
       return view;
@@ -92,9 +106,27 @@ Module.prototype = {
         ctrl.vm.message(peek);
         return generic('error_small').view(peek.error);
       }
-      return generic('error_small').view(error);
+      if (ctrl.vm && this.vm.addMessage) {
+        return generic('error_small').view(error);
+      } else {
+        this.criticalState = true;
+        m.render(document.body, m('#container.container', generic('error').view(error)));
+      }
     }
   },
 };
 
 module.exports = Module;
+
+layout = require('./layout')
+
+mapModules = {
+  'public': [
+    require('../public/components/header/header.controller'),
+    require('../public/components/footer/footer.controller')
+  ],
+  'admin': [
+    require('../admin/components/header/header.controller'),
+    {}
+  ]
+};

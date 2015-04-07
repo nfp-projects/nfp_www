@@ -6,13 +6,14 @@ var currentActive = '';
 var isTouch = false;
 var isDragging = false;
 
-exports.link = function(element) {
+function link(element) {
   element.href = this.attrs.href;
   element.removeEventListener("click", routeUnobtrusive);
   element.addEventListener("click", routeUnobtrusive);
 };
+exports.link = link;
 
-exports.smartLink = function(item, element) {
+function smartLink(item, element) {
   element.href = this.attrs.href;
   element._item = item;
   element.removeEventListener('touchmove', checkTouchMove);
@@ -22,6 +23,14 @@ exports.smartLink = function(item, element) {
   element.removeEventListener("click", routeSmart);
   element.addEventListener("click", routeSmart);
 };
+exports.smartLink = smartLink;
+
+function prevent(e) {
+  e = e || event;
+  if (e.preventDefault) e.preventDefault();
+  else e.returnValue = false;
+}
+exports.noop = prevent;
 
 function routeUnobtrusive(e) {
   /*jshint validthis: true */
@@ -96,11 +105,6 @@ function routeSmart(e, b) {
   } else {
     currentTarget.parentElement.className += ' navigation-item--expand';
   }
-}
-
-function prevent(e) {
-  if (e.preventDefault) e.preventDefault();
-  else e.returnValue = false;
 }
 
 function route(element) {

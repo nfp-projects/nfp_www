@@ -19,7 +19,9 @@ window.components = {};
 require('es6-promise').polyfill();
 
 var m = require('mithril');
-var generic = require('./components/generic/generic.controller');
+var _ = require('lodash');
+window.components.m = m;
+var generic = require('./public/components/generic/generic.controller');
 
 try
 {
@@ -31,35 +33,11 @@ try
   //Init authentication
   authentication.init();
 
-  //The routes for this website.
-  var home = require('./components/home/home.controller');
-  var releases = require('./components/releases/releases.controller');
-  var profile = require('./components/profile/profile.controller');
-  var login = require('./components/login/login.controller');
-  var generic = require('./components/generic/generic.controller');
+  var pub = require('./public/public');
+  var admin = require('./admin/admin');
 
-  var content = document.getElementById('content');
-
-  if (!content) return;
-
-  m.route(document.getElementById('content'), '/', {
-    '/': home,
-    '/releases': releases,
-    '/profile': profile,
-    '/login': login,
-    '/login/:action': login,
-    '/error': generic('throw_error'),
-    '/:other...': generic('not_found')
-  });
-
-  //Render the header & footer
-  var header = require('./components/header/header.controller');
-  var footer = require('./components/footer/footer.controller');
-  m.module(document.getElementById('header'), header);
-  m.module(document.getElementById('footer'), footer);
+  m.route(document.getElementById('container'), '/', _.merge(admin.routes(), pub.routes()));
 }
 catch (error) {
-  if (error.message !== 'Please ensure the DOM element exists before rendering a template into it.') {
-    m.render(document.getElementById('container'), generic('error').view(error));
-  }
+  m.render(document.body, m('#container.container', generic('error').view(error)));
 }

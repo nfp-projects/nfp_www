@@ -29,11 +29,11 @@ node_modules
 # Compiled assets and hidden files
 assets/js/layout.js
 assets/js/.*
-assets/js/components/**/*.view.js
+assets/js/*/components/**/*.view.js
 
 # lol, I should find a workaround for this
-assets/js/components/releases/releases.controller.js
-assets/js/components/footer/footer.controller.js
+assets/js/public/components/releases/releases.controller.js
+assets/js/public/components/footer/footer.controller.js
 
 # Runtime config
 config/config.json.current

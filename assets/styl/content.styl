@@ -1,11 +1,26 @@
 
 #content
-  max-width: 1000px
-  margin: 20px auto 0
-  padding: 0 10px
+  padding: 0 0.7rem
+
+#content.content--admin
+  padding: 0
+  height: calc(100% - 54px)
+  height: -o-calc(100% - 54px) /* opera */
+  height: -webkit-calc(100% - 54px) /* google, safari */
+  height: -moz-calc(100% - 54px) /* firefox */
 
 #content > section
+  max-width: 1000px
+  margin: 20px auto 0
   border: 1px solid #CECECE
   border-bottom: none
   border-radius: 7px 7px 0px 0px
   padding-bottom: 2rem
+
+#content.content--admin > section
+  max-width: none
+  margin: 0
+  border: none
+  padding: 0
+  height: 100%
+  border-radius: 0px
