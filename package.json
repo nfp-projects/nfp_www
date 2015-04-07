@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "livereload": "live-reload --port 9091 dist/",
-    "build:res": "cpy assets/styl/libs/fonts/* dist/css/fonts/",
+    "build:res": "cp assets/styl/libs/fonts/* dist/css/fonts/",
     "build:styl": "stylus -I node_modules assets/styl/main.styl --out dist/css",
     "watch:styl": "stylus -w -I node_modules assets/styl/main.styl --out dist/css",
     "build:jsx": "msx -x jsx --no-precompile assets/js/ assets/js/",
@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "closurecompiler": "^1.5.1",
-    "cpy": "^3.0.0",
     "es6-promise": "^2.0.1",
     "stylus": "^0.50.0",
     "jso-browser": "TheThing/jso",
