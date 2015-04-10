@@ -3,11 +3,11 @@ var m = require('mithril');
 
 function routes() {
   //The routes for this website.
-  var home = require('./components/home/home.controller');
-  var releases = require('./components/releases/releases.controller');
-  var profile = require('./components/profile/profile.controller');
-  var login = require('./components/login/login.controller');
-  var generic = require('./components/generic/generic.controller');
+  var home = require('./home/home.controller');
+  var releases = require('./releases/releases.controller');
+  var profile = require('./profile/profile.controller');
+  var login = require('./login/login.controller');
+  var generic = require('./generic/generic.controller');
 
   return {
     '/': home,

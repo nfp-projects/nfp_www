@@ -21,7 +21,7 @@ require('es6-promise').polyfill();
 var m = require('mithril');
 var _ = require('lodash');
 window.components.m = m;
-var generic = require('./public/components/generic/generic.controller');
+var generic = require('./components/public/generic/generic.controller');
 
 try
 {
@@ -33,8 +33,8 @@ try
   //Init authentication
   authentication.init();
 
-  var pub = require('./public/public');
-  var admin = require('./admin/admin');
+  var pub = require('./components/public/public');
+  var admin = require('./components/admin/admin');
 
   m.route(document.getElementById('container'), '/', _.merge(admin.routes(), pub.routes()));
 }

@@ -32,11 +32,11 @@ function loadLayout(name) {
 
 map = {
   'public': {
-    header: require('../public/components/header/header.controller'),
-    footer: require('../public/components/footer/footer.controller')
+    header: require('../components/public/header/header.controller'),
+    footer: require('../components/public/footer/footer.controller')
   },
   'admin': {
-    header: require('../admin/components/header/header.controller'),
+    header: require('../components/admin/header/header.controller'),
     footer: null
   }
 };

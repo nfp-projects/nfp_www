@@ -14,7 +14,7 @@ api._unwrapError = function(data, xhr) {
   if (xhr.status === 401) {
     auth.logout();
     m.route('/login');
-    var login = require('../public/components/login/login.model');
+    var login = require('../components/public/login/login.model');
     login.vm.errors('Unauthorized error, please re-login');
   }
   return {

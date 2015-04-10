@@ -3,9 +3,6 @@
 var m = require('mithril');
 var layout;
 
-var mapModules = {};
-var currentLayout = null;
-
 function Module() {
   var built = false;
 
@@ -29,7 +26,7 @@ function Module() {
         });
       } else {
         this.criticalState = true;
-        var generic = require('../public/components/generic/generic.controller');
+        var generic = require('../components/public/generic/generic.controller');
         m.render(document.body, m('#container.container', generic('error').view(error)));
       }
     }
@@ -90,7 +87,7 @@ Module.prototype = {
 
   render: function(ctrl) {
     if (ctrl.criticalState) return;
-    var generic = require('../public/components/generic/generic.controller');
+    var generic = require('../components/public/generic/generic.controller');
 
     var peek = ctrl.vm && ctrl.vm.messagePeek && ctrl.vm.messagePeek() || null;
 
@@ -119,14 +116,3 @@ Module.prototype = {
 module.exports = Module;
 
 layout = require('./layout')
-
-mapModules = {
-  'public': [
-    require('../public/components/header/header.controller'),
-    require('../public/components/footer/footer.controller')
-  ],
-  'admin': [
-    require('../admin/components/header/header.controller'),
-    {}
-  ]
-};

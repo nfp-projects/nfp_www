@@ -4,8 +4,8 @@ var m = require('mithril');
 
 function routes() {
   //The routes for this website.
-  var dashboard = require('./components/dashboard/dashboard.controller');
-  var settings = require('./components/settings/settings.controller');
+  var dashboard = require('./dashboard/dashboard.controller');
+  var settings = require('./settings/settings.controller');
 
   return {
     '/admin': dashboard,
