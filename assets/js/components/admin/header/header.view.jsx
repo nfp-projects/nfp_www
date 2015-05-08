@@ -23,6 +23,10 @@ header._view = function(c) {
               <i class="fa fa-server"></i>
               <span>Series</span>
             </a>
+            <a class="navigation-admin-item" href="/admin/s" config={m.route}>
+              <i class="fa fa-comments"></i>
+              <span>Comments</span>
+            </a>
             <a class="navigation-admin-item" href="/admin/settings" config={m.route}>
               <i class="fa fa-cogs"></i>
               <span>Settings</span>

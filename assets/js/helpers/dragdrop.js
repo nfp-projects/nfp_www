@@ -14,13 +14,15 @@ function DragDrop(options) {
 DragDrop.prototype.config = function(element, isInitialized) {
   if (isInitialized) return;
   var that = this;
+  var crt;
 
   element.addEventListener("dragstart", function(event) {
     event.dataTransfer.setData('text', this.dataset[that.options.data]);
 
-    var crt = this.cloneNode(true);
+    crt = this.cloneNode(true);
     crt.style['z-index'] = -999;
-    crt.style.position = "absolute"; crt.style.top = "0px"; crt.style.right = "0px";
+    crt.style.position = "absolute"; crt.style.top = "-100px"; crt.style.right = "0px";
+    this.style.opacity = that.options.opacity;
     document.body.appendChild(crt);
     event.dataTransfer.setDragImage(crt, that.options.pos_x, that.options.pos_y);
   });
@@ -33,6 +35,11 @@ DragDrop.prototype.config = function(element, isInitialized) {
     that.options.dropped(event.dataTransfer.getData('text'), this.dataset[that.options.data]);
   });
   element.addEventListener("dragend", function(event) {
+    this.style.opacity = 1.0;
+    if (crt) {
+      document.body.removeChild(crt);
+      crt = null;
+    }
     event.preventDefault();
   });
 };

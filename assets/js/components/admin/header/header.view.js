@@ -23,6 +23,10 @@ header._view = function(c) {
               m("i", {class:"fa fa-server"}), 
               m("span", ["Series"])
             ]), 
+            m("a", {class:"navigation-admin-item",href:"/admin/s",config:m.route}, [
+              m("i", {class:"fa fa-comments"}), 
+              m("span", ["Comments"])
+            ]), 
             m("a", {class:"navigation-admin-item",href:"/admin/settings",config:m.route}, [
               m("i", {class:"fa fa-cogs"}), 
               m("span", ["Settings"])

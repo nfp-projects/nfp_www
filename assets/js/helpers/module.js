@@ -7,6 +7,7 @@ function Module() {
   var built = false;
 
   this.controller = function() {
+    var route = m.route();
     try {
       if (!built && this.vm) {
         this.vmBuilder(this.vm);
@@ -30,7 +31,9 @@ function Module() {
         m.render(document.body, m('#container.container', generic('error').view(error)));
       }
     }
-    layout.loadLayout(this.layout);
+    if (route === m.route()) {
+      layout.loadLayout(this.layout);
+    }
   };
 
   this.controller.prototype = this;

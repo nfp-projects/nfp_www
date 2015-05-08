@@ -75,5 +75,17 @@ api.put = function(path, data, options) {
   return m.request(options);
 };
 
+api.del = function(path, options) {
+  options = _.defaults(options || {}, {
+    method: 'DELETE',
+    url: apiUrl + path,
+    unwrapError: api._unwrapError,
+    deserialize: api._deserialize,
+    config: auth.config
+  });
+
+  return m.request(options);
+};
+
 module.exports = api;
 

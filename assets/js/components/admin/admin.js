@@ -11,6 +11,7 @@ function routes() {
     '/admin': dashboard,
     '/admin/settings': settings,
     '/admin/settings/:action': settings,
+    '/admin/settings/:action/:id': settings,
   };
 }
 exports.routes = routes;
