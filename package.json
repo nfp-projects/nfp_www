@@ -29,24 +29,24 @@
   },
   "homepage": "https://github.com/nfp-projects/nfp_www",
   "devDependencies": {
-    "nodemon": "^1.3.5",
-    "parallelshell": "^1.0.4",
-    "watch": "^0.13.0",
-    "watchify": "^2.3.0",
-    "spserver": "^0.1.2",
-    "live-reload": "^0.2.0"
+    "live-reload": "*",
+    "nodemon": "*",
+    "parallelshell": "*",
+    "spserver": "*",
+    "watch": "*",
+    "watchify": "*"
   },
   "dependencies": {
-    "browserify": "^8.1.1",
-    "closurecompiler": "^1.5.1",
-    "es6-promise": "^2.0.1",
-    "stylus": "^0.50.0",
-    "jso-browser": "TheThing/jso",
-    "jwt-decode": "^1.0.0",
-    "lodash": "^3.0.0",
+    "browserify": "^11.0.0",
+    "closurecompiler": "*",
+    "es6-promise": "*",
+    "jso-browser": "thething/jso",
+    "jwt-decode": "*",
+    "lodash": "*",
     "mithril": "lhorie/mithril.js#next",
-    "msx": "^0.3.0",
-    "nconf": "^0.7.1",
-    "nib": "^1.1.0"
+    "msx": "^0.4.1",
+    "nconf": "*",
+    "nib": "*",
+    "stylus": "^0.52.0"
   }
 }

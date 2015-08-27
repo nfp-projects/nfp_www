@@ -18,8 +18,8 @@ exports.error = function(error) {
   return m("main", {class:"generic-critical_error"}, [
       m("section", {class:"generic-critical_error-box"}, [
         m("div", {class:"generic-critical_error-box-img"}), 
-        m("h4", {class:"generic-critical_error-box-title"}, ["Critical Error Occured: ",error.message]), 
-        m("a", {class:"generic-critical_error-box-link",href:"/"}, ["Click here to go back to Home"]), 
+        m("h4", {class:"generic-critical_error-box-title"}, ["Critical Error Occured: ", error.message]), 
+        m("a", {class:"generic-critical_error-box-link", href:"/"}, ["Click here to go back to Home"]), 
         m("p", {class:"generic-critical_error-box-stack"}, [m.trust(stack)])
       ])
     ])
@@ -36,8 +36,8 @@ exports.error_small = function(error) {
   return m("section", {class:"generic-error_box"}, [
       m("div", {class:"row"}, [
         m("div", {class:"medium-6 columns columns-centered"}, [
-          m("h3", {class:"generic-error_box-header"}, ["Unhandled Error Occured:",m("br"), error.message]), 
-          m("a", {class:"generic-critical_error-box-link",href:"/"}, ["Click here to go back to Home"]), 
+          m("h3", {class:"generic-error_box-header"}, ["Unhandled Error Occured:", m("br"), error.message]), 
+          m("a", {class:"generic-critical_error-box-link", href:"/"}, ["Click here to go back to Home"]), 
           m("p", {class:"generic-error_box-text"}, [m.trust(stack)])
         ]), 
         m("div", {class:"medium-6 columns columns-centered"}, [
@@ -78,7 +78,7 @@ exports.not_found = function(ctrl) {
           m("ul", {class:"generic-not_found-list"}, [
           items.map(function(item) {
             return m("li", {class:"generic-not_found-list-item"}, [
-                m("a", {href:item.url,config:helper.link}, [
+                m("a", {href:item.url, config:helper.link}, [
                   item.text
                 ])
               ]);
